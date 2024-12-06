@@ -1,16 +1,22 @@
 from BinTree import BinTree
 from Stack import Stack
 
+
 dic_oper = {
     '+': 1,
     '-': 1,
     '*': 2,
     '/': 2,
     '^': 3,
-    '!': 6
+    '%': 4,
+    '$': 5,
+    '&': 5,
+    '@': 5,
+    '~': 6,
+    '!': 6,
 }
 
-equ = "5*7@+3"
+equ = "5*7-~4"
 index = 0
 
 origin = BinTree()
@@ -23,6 +29,7 @@ def current_is_operand():
 
 def current_is_operator():
     return dic_oper.get(equ[index]) is not None
+
 
 
 def Operand():
@@ -39,7 +46,6 @@ def Operand():
             cur = cur.get_right()
         else:
             while not save_dad.is_empty() and dic_oper.get(save_dad.peek().get_info()) >= dic_oper.get(equ[index]):
-                print(save_dad.peek().get_info(), index)
                 cur = save_dad.pop()
             temp = BinTree(equ[index], cur)
             cur = temp
@@ -55,16 +61,19 @@ def Operator():
     index += 1
 
     if current_is_operand():
-        cur.set_right(equ[index])
+        cur.set_right(int(equ[index]))
         Operand()
     elif current_is_operator():
         while not save_dad.is_empty() and dic_oper.get(save_dad.peek().get_info()) >= dic_oper.get(equ[index]):
-            print(save_dad.peek().get_info(), index)
             cur = save_dad.pop()
-        temp = BinTree(equ[index], cur)
-        cur = temp
-        if save_dad.is_empty():
-            origin = cur
+        if dic_oper.get(cur.get_info()) < dic_oper.get(equ[index]):
+            cur.set_right(equ[index])
+            cur = cur.get_right()
+        else:
+            temp = BinTree(equ[index], cur)
+            cur = temp
+            if save_dad.is_empty():
+                origin = cur
         Operator()
     else:
         raise SyntaxError("Syntax not good")
@@ -74,11 +83,11 @@ def start():
     global index, equ, origin, cur
 
     if current_is_operand():
-        cur.set_left(equ[index])
+        cur.set_left(int(equ[index]))
         index += 1
         cur.set_info(equ[index])
         index += 1
-        cur.set_right(equ[index])
+        cur.set_right(int(equ[index]))
         Operand()
     elif current_is_operator(): #### is left operator
         cur.set_info(equ[index])
@@ -101,7 +110,7 @@ def print_stack(stack : Stack):
 def main():
     try:
         start()
-    except Exception as e:
+    except IndexError as e:
         print(e)
     print(equ)
     print_tree(origin)
