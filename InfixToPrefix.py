@@ -1,27 +1,15 @@
 from BinTree import BinTree
 from Stack import Stack
+from Operand import Operand
+from Operators.Operator import Operator
 
-
-dic_oper = {
-    '+': 1,
-    '-': 1,
-    '*': 2,
-    '/': 2,
-    '^': 3,
-    '%': 4,
-    '$': 5,
-    '&': 5,
-    '@': 5,
-    '~': 6,
-    '!': 6,
-}
-
-equ = "5*7-~4"
+equ = "5+7-~3"
 index = 0
 
 origin = BinTree()
 cur = origin
 save_dad = Stack()
+
 
 def current_is_operand():
     return equ[index].isdigit()
@@ -39,7 +27,7 @@ def Operand():
     if current_is_operand():
         cur.set_right(int(cur.get_right().get_info()) * 10 + int(equ[index]))
         Operand()
-    elif current_is_operator():
+    elif current_is_operator(): # has to be binary or right
         if dic_oper.get(cur.get_info()) < dic_oper.get(equ[index]):
             cur.set_right_tree(BinTree(equ[index], cur.get_right()))
             save_dad.push(cur)
@@ -100,9 +88,7 @@ def print_tree(tree: BinTree):
     if tree is None:
         return
     print(tree.get_info(), end = ' ')
-    print('Left')
     print_tree(tree.get_left())
-    print('Right')
     print_tree(tree.get_right())
 
 def print_stack(stack : Stack):
