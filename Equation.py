@@ -1,6 +1,3 @@
-from InfixToPrefix import index
-
-
 class Equation:
     _equation = None
 
@@ -12,10 +9,16 @@ class Equation:
         return self
 
     def __next__(self):
-        self.index += 1
-        return self._equation[self.index]
+        try:
+            self.index += 1
+            return self._equation[self.index]
+        except IndexError as e:
+            raise StopIteration
 
     def __repr__(self):
+        return self._equation
+
+    def curr(self):
         return self._equation[self.index]
 
     def prev(self):

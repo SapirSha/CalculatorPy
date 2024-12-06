@@ -2,6 +2,7 @@ from Operators.BinaryOperator import BinaryOperator
 from Operators.UnaryLOperator import UnaryLOperator
 
 class Minus(BinaryOperator, UnaryLOperator):
+    symbol = '-'
     binary_priority = 1
     unary_left_priority = 6
 
@@ -10,6 +11,3 @@ class Minus(BinaryOperator, UnaryLOperator):
 
     def unary_l_operation(self, right_operand):
         return -right_operand
-
-    def __repr__(self):
-        return '-'

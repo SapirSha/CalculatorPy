@@ -1,4 +1,3 @@
-from abc import abstractmethod, ABC
 from Operators.Operator import Operator
 
 class BinaryOperator(Operator):
