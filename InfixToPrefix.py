@@ -100,7 +100,9 @@ def print_tree(tree: BinTree):
     if tree is None:
         return
     print(tree.get_info(), end = ' ')
+    print('Left')
     print_tree(tree.get_left())
+    print('Right')
     print_tree(tree.get_right())
 
 def print_stack(stack : Stack):
