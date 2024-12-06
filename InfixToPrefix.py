@@ -6,10 +6,11 @@ dic_oper = {
     '-': 1,
     '*': 2,
     '/': 2,
-    '^': 3
+    '^': 3,
+    '!': 6
 }
 
-equ = "1+2*3^4*5+6"
+equ = "5*7@+3"
 index = 0
 
 origin = BinTree()
@@ -29,20 +30,17 @@ def Operand():
     index += 1
 
     if current_is_operand():
-        ...
+        cur.set_right(int(cur.get_right().get_info()) * 10 + int(equ[index]))
         Operand()
     elif current_is_operator():
         if dic_oper.get(cur.get_info()) < dic_oper.get(equ[index]):
             cur.set_right_tree(BinTree(equ[index], cur.get_right()))
             save_dad.push(cur)
             cur = cur.get_right()
-        else: # cur >=
+        else:
             while not save_dad.is_empty() and dic_oper.get(save_dad.peek().get_info()) >= dic_oper.get(equ[index]):
                 print(save_dad.peek().get_info(), index)
                 cur = save_dad.pop()
-            print("E")
-            print_tree(cur)
-            print("E")
             temp = BinTree(equ[index], cur)
             cur = temp
             if save_dad.is_empty():
@@ -60,7 +58,14 @@ def Operator():
         cur.set_right(equ[index])
         Operand()
     elif current_is_operator():
-        ...
+        while not save_dad.is_empty() and dic_oper.get(save_dad.peek().get_info()) >= dic_oper.get(equ[index]):
+            print(save_dad.peek().get_info(), index)
+            cur = save_dad.pop()
+        temp = BinTree(equ[index], cur)
+        cur = temp
+        if save_dad.is_empty():
+            origin = cur
+        Operator()
     else:
         raise SyntaxError("Syntax not good")
 
@@ -85,13 +90,13 @@ def start():
 def print_tree(tree: BinTree):
     if tree is None:
         return
-    print(tree.get_info(), end = '')
+    print(tree.get_info(), end = ' ')
     print_tree(tree.get_left())
     print_tree(tree.get_right())
 
 def print_stack(stack : Stack):
     while not stack.is_empty():
-        print(stack.pop().get_info(), end = '')
+        print(stack.pop().get_info(), end = ' ')
 
 def main():
     try:
