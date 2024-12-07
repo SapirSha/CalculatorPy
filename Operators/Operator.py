@@ -1,6 +1,7 @@
-import Operators_Dictionary
+from abc import abstractmethod, ABC
 
-class Operator:
+
+class Operator(ABC):
     symbol = None
 
     def get_symbol(self):
@@ -8,7 +9,3 @@ class Operator:
 
     def __repr__(self):
         return self.symbol
-
-    @staticmethod
-    def is_operator(key : str) -> bool:
-        return Operators_Dictionary.operators_dictionary.get(key) is not None
