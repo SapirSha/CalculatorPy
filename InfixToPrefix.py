@@ -1,10 +1,29 @@
 from BinTree import BinTree
 from Stack import Stack
-from Operand import Operand
-from Operators.Operator import Operator
 
-equ = "5+7-~3"
+equ = "5+7!!!!!+-3"
 index = 0
+
+dic_oper = {
+    '+': 1,
+    '-': 1,
+    '*': 2,
+    '/': 2,
+    '^': 3,
+    '%': 4,
+    '$': 5,
+    '&': 5,
+    '@': 5,
+    '~': 6,
+    '!': 6,
+}
+dic_oper_r = {
+    '!': 6
+}
+dic_oper_l = {
+    '-': 6,
+    '~': 6
+}
 
 origin = BinTree()
 cur = origin
@@ -18,15 +37,24 @@ def current_is_operand():
 def current_is_operator():
     return dic_oper.get(equ[index]) is not None
 
+def current_is_operator_b():
+    return current_is_operator() and dic_oper_r.get(equ[index]) is None and  dic_oper_l.get(equ[index]) is None
+
+def current_is_operator_l():
+    return dic_oper_l.get(equ[index]) is not None
+
+def current_is_operator_r():
+    return dic_oper_r.get(equ[index]) is not None
 
 
-def Operand():
+
+def gotOperand():
     global index, equ, origin, cur
     index += 1
 
     if current_is_operand():
         cur.set_right(int(cur.get_right().get_info()) * 10 + int(equ[index]))
-        Operand()
+        gotOperand()
     elif current_is_operator(): # has to be binary or right
         if dic_oper.get(cur.get_info()) < dic_oper.get(equ[index]):
             cur.set_right_tree(BinTree(equ[index], cur.get_right()))
@@ -39,30 +67,78 @@ def Operand():
             cur = temp
             if save_dad.is_empty():
                 origin = cur
-        Operator()
+        gotOperator()
     else:
         raise SyntaxError("Syntax not good")
 
 
-def Operator():
+def gotOperator():
     global index, equ, origin, cur
     index += 1
 
     if current_is_operand():
         cur.set_right(int(equ[index]))
-        Operand()
+        gotOperand()
     elif current_is_operator():
-        while not save_dad.is_empty() and dic_oper.get(save_dad.peek().get_info()) >= dic_oper.get(equ[index]):
-            cur = save_dad.pop()
-        if dic_oper.get(cur.get_info()) < dic_oper.get(equ[index]):
-            cur.set_right(equ[index])
-            cur = cur.get_right()
+        while current_is_operator_r():
+            if not save_dad.is_empty() and dic_oper.get(save_dad.peek().get_info()) >= dic_oper.get(equ[index]):
+                raise Exception("Somthing is wrong with the priority values")
+            else:
+                temp = BinTree(equ[index], cur)
+                if save_dad.is_empty():
+                    cur = temp
+                    origin = cur
+                else:
+                    cur = save_dad.pop()
+                    cur.set_right_tree(temp)
+                    save_dad.push(cur)
+                    cur = cur.get_right()
+            index += 1
+
+        if current_is_operator_b():
+            if dic_oper_r.get(cur.get_info()) > dic_oper.get(equ[index]):
+                temp = BinTree(equ[index], cur)
+                cur = temp
+                if save_dad.is_empty():
+                    origin = cur
+            else:
+                raise Exception("Somthing is wrong with the priority values")
         else:
-            temp = BinTree(equ[index], cur)
-            cur = temp
-            if save_dad.is_empty():
-                origin = cur
-        Operator()
+            index -= 1
+            if current_is_operator_b():
+                if dic_oper.get(cur.get_info()) > dic_oper.get(equ[index]):
+                    pass
+                else:
+                    raise Exception("Somthing is wrong with the priority values (doing operation on operators)")
+            else:
+                raise SyntaxError("no binary operator with unary operators")
+
+        binary_operator = cur
+        index += 1
+        oper_left = 0
+        while current_is_operator_l():
+            if oper_left == 0 and dic_oper_l.get(equ[index]) > dic_oper.get(cur.get_info()):
+                oper_left = 1
+                cur.set_right(equ[index])
+                save_dad.push(cur)
+                cur = cur.get_right()
+            elif oper_left != 0 and dic_oper_l.get(equ[index]) >= dic_oper_l.get(cur.get_info()):
+                save_dad.push(cur)
+                cur = cur.get_right()
+                cur.set_right(equ[index])
+            else:
+                raise Exception("Somthing is wrong with the priority values (doing operation on operators)")
+            index += 1
+
+        while save_dad.pop() != binary_operator:
+            ...
+        cur = binary_operator
+
+        if not current_is_operand():
+            raise SyntaxError("Operand has to be after left operator")
+        index -=1
+
+        gotOperator()
     else:
         raise SyntaxError("Syntax not good")
 
@@ -76,10 +152,10 @@ def start():
         cur.set_info(equ[index])
         index += 1
         cur.set_right(int(equ[index]))
-        Operand()
+        gotOperand()
     elif current_is_operator(): #### is left operator
         cur.set_info(equ[index])
-        Operator()
+        gotOperator()
     else:
         raise SyntaxError(" Not Good Syntax! ")
 
