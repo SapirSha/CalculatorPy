@@ -9,5 +9,4 @@ class UnaryROperator(Operator, ABC):
     def unary_r_operation(self):
         ...
 
-    def get_unary_r_priority(self) -> int:
-        return self.unary_right_priority
+

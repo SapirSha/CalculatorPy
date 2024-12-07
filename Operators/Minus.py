@@ -6,6 +6,7 @@ class Minus(BinaryOperator, UnaryLOperator):
     binary_priority = 1
     unary_left_priority = 6
 
+
     def binary_operation(self, left_operand, right_operand):
         ...
 

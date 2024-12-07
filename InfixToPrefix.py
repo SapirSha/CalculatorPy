@@ -1,8 +1,7 @@
 from BinTree import BinTree
-from Operators.BinaryOperator import BinaryOperator
 from Stack import Stack
 
-equ = ("5+7!!!+2!")
+equ = ("5+7!!@!!-3")
 index = 0
 
 dic_oper = {
@@ -32,7 +31,8 @@ dic_oper_b = {
 }
 
 dic_oper_r = {
-    '!': 6
+    '!': 6,
+    '@': 5,
 }
 dic_oper_l = {
     '-': 6,
@@ -242,6 +242,7 @@ def print_tree(tree: BinTree):
 def print_stack(stack : Stack):
     while not stack.is_empty():
         print(stack.pop().get_info(), end = ' ')
+
 
 def main():
     try:

@@ -9,6 +9,5 @@ class BinaryOperator(Operator, ABC):
     def binary_operation(self, left_operand, right_operand):
         ...
 
-    def get_binary_priority(self):
-        return self.binary_priority
+
 

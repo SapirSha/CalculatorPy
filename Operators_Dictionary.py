@@ -1,3 +1,4 @@
+from BinTree import BinTree
 from Operators.BinaryOperator import BinaryOperator
 from Operators.Operator import Operator
 
@@ -36,7 +37,6 @@ def create_operators_dictionary():
 def get_operator(symbol: str) -> Operator:
     return operators_dictionary.get(symbol)
 
-
 def is_operator(symbol: str) -> bool:
     return get_operator(symbol) is not None
 
@@ -51,6 +51,15 @@ def is_operator_unary_l(symbol: str) -> bool:
 
 def is_operator_unary_r(symbol: str) -> bool:
     return is_operator(symbol) and isinstance(get_operator(symbol), UnaryROperator)
+
+def expected_binary(tree: BinTree):
+    return tree.get_left() is not None and tree.get_right() is not None
+
+def expected_unary_r(tree: BinTree):
+    return tree.get_left() is not None and tree.get_right() is None
+
+def expected_unary_l(tree: BinTree):
+    return tree.get_left() is None and tree.get_right() is not None
 
 
 create_operators_dictionary()

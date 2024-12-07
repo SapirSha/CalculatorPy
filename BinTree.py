@@ -1,3 +1,5 @@
+
+
 class BinTree:
     def __init__(self, info = None, left = None, right = None):
         if (type(left) != BinTree and left is not None)\
@@ -30,3 +32,4 @@ class BinTree:
 
     def get_info(self):
         return self._info
+

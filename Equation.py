@@ -25,4 +25,8 @@ class Equation:
         self.index -= 1
         return self._equation[self.index]
 
+    def get(self, index):
+        return self._equation[index]
+
+
 

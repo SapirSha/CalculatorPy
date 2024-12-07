@@ -8,6 +8,3 @@ class UnaryLOperator(Operator, ABC):
     @abstractmethod
     def unary_l_operation(self, number):
         ...
-
-    def get_unary_l_priority(self):
-        return self.unary_left_priority
