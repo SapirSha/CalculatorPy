@@ -6,7 +6,7 @@ from Operand import Operand
 
 
 def main():
-    gotten_input = "-1!*31^-2"
+    gotten_input = "1!*3^-2"
     equation = Equation(gotten_input)
     print(equation)
     equation_tree = create_equation_tree(equation)

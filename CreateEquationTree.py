@@ -1,8 +1,13 @@
+import gettext
+
 from BinTree import BinTree
 from Equation import Equation
 from Operators_Dictionary import *
 from Stack import Stack
 from Operand import Operand, is_operand
+
+PRIO_AT_TREE = 1
+OPERATOR_AT_TREE = 0
 
 origin = BinTree()
 cur = origin
@@ -21,33 +26,32 @@ def put_cur_at_appropriate_place(current_operator: Operator):
     global tree_parents, cur
 
     while (not tree_parents.is_empty()
-           and get_operator(tree_parents.peek().get_info().get_symbol()).get_binary_priority() >= current_operator.get_binary_priority()):
+           and tree_parents.peek().get_info()[PRIO_AT_TREE] >= current_operator.get_binary_priority()):
         cur = tree_parents.pop()
 
 
 def put_cur_at_appropriate_place_r(current_operator: Operator):
     global tree_parents, cur
     while (not tree_parents.is_empty()
-           and get_operator(
-                tree_parents.peek().get_info().get_symbol()).get_binary_priority() >= current_operator.get_unary_r_priority()):
+           and tree_parents.peek().get_info()[PRIO_AT_TREE] >= current_operator.get_unary_r_priority()):
         cur = tree_parents.pop()
 
-def put_above_cur(operator : Operator):
+def put_above_cur(operator : Operator, prio : int):
     global origin, cur, tree_parents
 
     if tree_parents.is_empty():
-        cur = BinTree(get_operator(equ.curr()), cur)
+        cur = BinTree((get_operator(equ.curr()), prio), cur)
         origin = cur
     else:
         cur = tree_parents.pop()
-        cur.set_right(get_operator(equ.curr()), cur.get_right())
+        cur.set_right((get_operator(equ.curr()), prio), cur.get_right())
         tree_parents.push(cur)
         cur = cur.get_right()
 
-def put_to_right_of_cur_and_check_out(operator: Operator):
+def put_to_right_of_cur_and_check_out(operator: Operator, prio: int):
     global origin, cur, tree_parents
 
-    cur.set_right(get_operator(equ.curr()), cur.get_right())
+    cur.set_right((get_operator(equ.curr()), prio), cur.get_right())
     tree_parents.push(cur)
     cur = cur.get_right()
 
@@ -68,12 +72,15 @@ def init_tree():
 
         remove_white_space()
         if is_operator(next(equ)):
-            cur.set_info(get_operator(equ.curr()))
+            if is_operator_binary(equ.curr()):
+                cur.set_info((get_operator(equ.curr()), get_operator(equ.curr()).get_binary_priority()))
+            else:
+                cur.set_info((get_operator(equ.curr()), get_operator(equ.curr()).get_unary_r_priority()))
         else:
             raise SyntaxError("Invalid Syntax (Expected Operator): '" + equ.curr() + "'")
         got_operator()
     elif is_operator_unary_l(equ.curr()):
-        cur.set_info(get_operator(equ.curr()))
+        cur.set_info((get_operator(equ.curr()), get_operator(equ.curr()).get_unary_l_priority()))
         got_operator()
     elif is_operator(equ.curr()):
         raise SyntaxError("not a valid left operator: '" + equ.curr() + "'")
@@ -93,17 +100,17 @@ def got_operand():
     if is_operator(equ.curr()):
         if is_operator_binary(equ.curr()):
             put_cur_at_appropriate_place(get_operator(equ.curr()))
-            if cur.get_info().get_binary_priority() >= get_operator(equ.curr()).get_binary_priority():
-                put_above_cur(get_operator(equ.curr()))
+            if cur.get_info()[PRIO_AT_TREE] >= get_operator(equ.curr()).get_binary_priority():
+                put_above_cur(get_operator(equ.curr()), get_operator(equ.curr()).get_binary_priority())
             else:
-                put_to_right_of_cur_and_check_out(get_operator(equ.curr()))
+                put_to_right_of_cur_and_check_out(get_operator(equ.curr()), get_operator(equ.curr()).get_binary_priority())
             got_operator()
         elif is_operator_unary_r(equ.curr()):
             put_cur_at_appropriate_place_r(get_operator(equ.curr()))
-            if cur.get_info().get_binary_priority() >= get_operator(equ.curr()).get_unary_r_priority():
-                put_above_cur(get_operator(equ.curr()))
+            if cur.get_info()[PRIO_AT_TREE] >= get_operator(equ.curr()).get_unary_r_priority():
+                put_above_cur(get_operator(equ.curr()), get_operator(equ.curr()).get_unary_r_priority())
             else:
-                put_to_right_of_cur_and_check_out(get_operator(equ.curr()))
+                put_to_right_of_cur_and_check_out(get_operator(equ.curr()), get_operator(equ.curr()).get_unary_r_priority())
             got_operator()
         else:
             raise SyntaxError("not valid right or binary operator")
@@ -114,25 +121,24 @@ def got_operand():
 def got_operator():
     global origin, cur, equ
     remove_white_space()
-    print_tree(cur)
-    print("TREE1")
 
     if is_operand(next(equ)):
         cur.set_right(Operand(int(equ.curr())))
         got_operand()
     elif is_operator(equ.curr()):
+
         if is_operator_unary_r(equ.curr()):
             while is_operator_unary_r(equ.curr()):
                 put_cur_at_appropriate_place_r(get_operator(equ.curr()))
-                if isinstance(cur.get_info(), BinaryOperator) and cur.get_info().get_binary_priority() >= get_operator(
+                if isinstance(cur.get_info()[OPERATOR_AT_TREE], BinaryOperator) and cur.get_info()[PRIO_AT_TREE] >= get_operator(
                         equ.curr()).get_unary_r_priority():
-                    if cur.get_info().get_binary_priority() >= get_operator(equ.curr()).get_unary_r_priority():
-                        put_above_cur(get_operator(equ.curr()))
+                    if cur.get_info()[PRIO_AT_TREE] >= get_operator(equ.curr()).get_unary_r_priority():
+                        put_above_cur(get_operator(equ.curr()), get_operator(equ.curr()).get_unary_r_priority())
                     else:
-                        put_to_right_of_cur_and_check_out(get_operator(equ.curr()))
-                elif isinstance(cur.get_info(), UnaryROperator):
-                    if cur.get_info().get_unary_r_priority() >= get_operator(equ.curr()):
-                        put_above_cur(get_operator(equ.curr()))
+                        put_to_right_of_cur_and_check_out(get_operator(equ.curr()), get_operator(equ.curr()).get_binary_priority())
+                elif isinstance(cur.get_info()[OPERATOR_AT_TREE], UnaryROperator):
+                    if cur.get_info()[PRIO_AT_TREE] >= get_operator(equ.curr()).get_unary_r_priority():
+                        put_above_cur(get_operator(equ.curr()), get_operator(equ.curr()).get_unary_r_priority())
                     else:
                         raise Exception("Somthing is wrong with the way the priorities are set up")
                 remove_white_space()
@@ -144,29 +150,39 @@ def got_operator():
             remove_white_space()
             next(equ)
 
-        print_tree(cur)
-        print("TREE2")
-
-        if is_operator_binary(equ.curr()) and is_operator_unary_r(equ.get(equ.index - 1)):
+        if is_operator_binary(equ.curr()) and isinstance(cur.get_info()[OPERATOR_AT_TREE], UnaryROperator):
             put_cur_at_appropriate_place(get_operator(equ.curr()))
-            if cur.get_info().get_binary_priority() >= get_operator(equ.curr()).get_binary_priority():
-                put_above_cur(get_operator(equ.curr()))
+            if cur.get_info()[PRIO_AT_TREE] >= get_operator(equ.curr()).get_binary_priority():
+                put_above_cur(get_operator(equ.curr()), get_operator(equ.curr()).get_binary_priority())
             else:
-                put_to_right_of_cur_and_check_out(get_operator(equ.curr()))
-        elif is_operator_binary(equ.prev()): # Assumes the priority of the most recent operand doesn't change between his binary and unary right form
+                put_to_right_of_cur_and_check_out(get_operator(equ.curr()), get_operator(equ.curr()).get_binary_priority())
+        elif isinstance(cur.get_info()[OPERATOR_AT_TREE], BinaryOperator):
+            if cur.get_right() is not None and isinstance(cur.get_right().get_info()[OPERATOR_AT_TREE], UnaryROperator):
+                put_cur_at_appropriate_place(get_operator(equ.curr()))
+                if cur.get_info()[PRIO_AT_TREE] >= get_operator(equ.curr()).get_binary_priority():
+                    put_above_cur(get_operator(equ.curr()), get_operator(equ.curr()).get_binary_priority())
+                else:
+                    put_to_right_of_cur_and_check_out(get_operator(equ.curr()),
+                                                      get_operator(equ.curr()).get_binary_priority())
+            else:
+                equ.prev()
+        elif isinstance(cur.get_info()[OPERATOR_AT_TREE], BinaryOperator):
             pass
         else:
             raise SyntaxError("Expected binary operator")
 
         remove_white_space()
         if is_operator_unary_l(next(equ)):
-            print("EN ", equ.curr())
-            if cur.get_info().get_binary_priority() < get_operator(equ.curr()).get_unary_l_priority():
-                put_to_right_of_cur_and_check_out(get_operator(equ.curr()))
-                while is_operator_unary_l(next(equ)) and cur.get_info().get_unary_l_priority() <= get_operator(equ.curr()).get_unary_l_priority():
-                    put_to_right_of_cur_and_check_out(get_operator(equ.curr()))
+            if cur.get_info()[PRIO_AT_TREE] < get_operator(equ.curr()).get_unary_l_priority():
+                put_to_right_of_cur_and_check_out(get_operator(equ.curr()), get_operator(equ.curr()).get_unary_l_priority())
+                while is_operator_unary_l(next(equ)) and cur.get_info()[PRIO_AT_TREE] <= get_operator(equ.curr()).get_unary_l_priority():
+                    put_to_right_of_cur_and_check_out(get_operator(equ.curr()), get_operator(equ.curr()).get_unary_l_priority())
                     remove_white_space()
-                if is_operator_unary_l(equ.curr()) and cur.get_info().get_unary_l_priority() > get_operator(equ.curr()).get_unary_l_priority():
+                if equ.curr().isspace():
+                    remove_white_space()
+                    next(equ)
+
+                if is_operator_unary_l(equ.curr()) and cur.get_info()[PRIO_AT_TREE] > get_operator(equ.curr()).get_unary_l_priority():
                     raise Exception("Somthing is wrong with the priorities of some operators")
                 elif not is_operand(equ.curr()):
                     raise SyntaxError("Incorrect usage of operators: " + equ.curr())
@@ -177,7 +193,10 @@ def got_operator():
 def print_tree(tree: BinTree):
     if tree is None:
         return
-    print(tree.get_info(), end=' ')
+    if isinstance(tree.get_info(), Operand):
+        print(tree.get_info(), end=' ')
+    else:
+        print(tree.get_info()[OPERATOR_AT_TREE], end=' ')
     print_tree(tree.get_left())
     print_tree(tree.get_right())
 
