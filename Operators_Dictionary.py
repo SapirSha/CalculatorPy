@@ -18,10 +18,11 @@ OPERATORS = [
     Caret(),
     ExclamationMark()
 ]
-
 operators_dictionary = {}
+
+
 def create_operators_dictionary():
-    global  operators_dictionary
+    global operators_dictionary
 
     if operators_dictionary == {}:
         print("Creating Dictionary! ")
@@ -31,19 +32,24 @@ def create_operators_dictionary():
     else:
         print("Dictionary already created")
 
-def get_operator(symbol : str) -> Operator:
+
+def get_operator(symbol: str) -> Operator:
     return operators_dictionary.get(symbol)
 
-def is_operator(symbol : str):
+
+def is_operator(symbol: str) -> bool:
     return get_operator(symbol) is not None
 
-def is_operator_binary(symbol : str):
+
+def is_operator_binary(symbol: str) -> bool:
     return is_operator(symbol) and isinstance(get_operator(symbol), BinaryOperator)
 
-def is_operator_unary_l(symbol : str):
+
+def is_operator_unary_l(symbol: str) -> bool:
     return is_operator(symbol) and isinstance(get_operator(symbol), UnaryLOperator)
 
-def is_operator_unary_r(symbol : str):
+
+def is_operator_unary_r(symbol: str) -> bool:
     return is_operator(symbol) and isinstance(get_operator(symbol), UnaryROperator)
 
 

@@ -1,7 +1,8 @@
 from BinTree import BinTree
+from Operators.BinaryOperator import BinaryOperator
 from Stack import Stack
 
-equ = ("5+7!+-3+1")
+equ = ("5+7!!!+2!")
 index = 0
 
 dic_oper = {
@@ -17,6 +18,19 @@ dic_oper = {
     '~': 6,
     '!': 6,
 }
+
+dic_oper_b = {
+    '+': 1,
+    '-': 1,
+    '*': 2,
+    '/': 2,
+    '^': 3,
+    '%': 4,
+    '$': 5,
+    '&': 5,
+    '@': 5,
+}
+
 dic_oper_r = {
     '!': 6
 }
@@ -43,13 +57,16 @@ def current_is_operator():
     return dic_oper.get(equ[index]) is not None
 
 def current_is_operator_b():
-    return current_is_operator() and dic_oper_r.get(equ[index]) is None and  dic_oper_l.get(equ[index]) is None
+    return dic_oper_b.get(equ[index]) is not None
 
 def current_is_operator_l():
     return dic_oper_l.get(equ[index]) is not None
 
 def current_is_operator_r():
     return dic_oper_r.get(equ[index]) is not None
+
+def prev_is_operator_r():
+    return dic_oper_r.get(equ[index-1]) is not None
 
 
 
@@ -109,10 +126,19 @@ def gotOperator():
         cur.set_right(int(equ[index]))
         gotOperand()
     elif current_is_operator():
-        start_operator = cur
         while current_is_operator_r():
             if not save_dad.is_empty() and dic_oper.get(save_dad.peek().get_info()) >= dic_oper.get(equ[index]):
-                raise Exception("Somthing is wrong with the priority values")
+                while not save_dad.is_empty() and dic_oper.get(save_dad.peek().get_info()) >= dic_oper.get(equ[index]):
+                    cur = save_dad.pop()
+                temp = BinTree(equ[index], cur)
+                if save_dad.is_empty():
+                    cur = temp
+                    origin = cur
+                else:
+                    cur = save_dad.pop()
+                    cur.set_right_tree(temp)
+                    save_dad.push(cur)
+                    cur = cur.get_right()
             else:
                 temp = BinTree(equ[index], cur)
                 if save_dad.is_empty():
@@ -126,8 +152,11 @@ def gotOperator():
             index += 1
 
 
-        if current_is_operator_b():
-            if dic_oper_r.get(cur.get_info()) > dic_oper.get(equ[index]):
+        if current_is_operator_b() and prev_is_operator_r():
+            print(save_dad.peek().get_info(), equ[index])
+            while not save_dad.is_empty() and dic_oper_b.get(save_dad.peek().get_info()) >= dic_oper_b.get(equ[index]):
+                cur = save_dad.pop()
+            if dic_oper_b.get(cur.get_info()) >= dic_oper_b.get(equ[index]):
                 temp = BinTree(equ[index], cur)
                 if save_dad.is_empty():
                     cur = temp
@@ -138,14 +167,20 @@ def gotOperator():
                     save_dad.push(cur)
                     cur = cur.get_right()
             else:
-                raise Exception("Somthing is wrong with the priority values")
+                raise SyntaxError(" IDK MIGHT NO BE ERROR WILL SEE LATER")
         else:
             index -= 1
             if current_is_operator_b():
-                if dic_oper.get(cur.get_info()) > dic_oper.get(equ[index]):
-                    pass
+                print(cur.get_info(), equ[index])
+                index -= 1
+                if current_is_operator_r():
+                    index += 1
+                    if dic_oper_r.get(cur.get_info()) > dic_oper_b.get(equ[index]):
+                        pass
+                    else:
+                        raise Exception("Somthing is wrong with the priority values (doing operation on operators)")
                 else:
-                    raise Exception("Somthing is wrong with the priority values (doing operation on operators)")
+                    index += 1
             else:
                 raise SyntaxError("no binary operator with unary operators")
 
@@ -153,17 +188,16 @@ def gotOperator():
         index += 1
         oper_left = 0
         while current_is_operator_l():
-
             if oper_left == 0 and dic_oper_l.get(equ[index]) > dic_oper.get(cur.get_info()):
-
                 oper_left = 1
                 cur.set_right(equ[index])
                 save_dad.push(cur)
                 cur = cur.get_right()
             elif oper_left != 0 and dic_oper_l.get(equ[index]) >= dic_oper_l.get(cur.get_info()):
+                print_tree(cur)
                 save_dad.push(cur)
-                cur = cur.get_right()
                 cur.set_right(equ[index])
+                cur = cur.get_right()
             else:
                 raise Exception("Somthing is wrong with the priority values (doing operation on operators)")
             index += 1
@@ -183,10 +217,14 @@ def start():
     if current_is_operand():
         cur.set_left(int(equ[index]))
         index += 1
-        cur.set_info(equ[index])
-        index += 1
-        cur.set_right(int(equ[index]))
-        gotOperand()
+        while current_is_operand():
+            cur.set_left(cur.get_left().get_info() * 10 + int(equ[index]))
+            index += 1
+        if current_is_operator():
+            cur.set_info(equ[index])
+        else:
+            raise SyntaxError("What")
+        gotOperator()
     elif current_is_operator(): #### is left operator
         cur.set_info(equ[index])
         gotOperator()
