@@ -38,7 +38,10 @@ class Equation:
             raise StopIteration
 
     def remove_white_space(self):
-        while self.curr().isspace():
-            self.index += 1
+        try:
+            while self.curr().isspace():
+                self.index += 1
+        except IndexError:
+            raise StopIteration
 
 

@@ -1,5 +1,9 @@
 from enum import Enum
 
+
+TREE_PRIO = 1
+TREE_OPER = 0
+
 class States(Enum):
     start = 0
     operator_unary_left = 1

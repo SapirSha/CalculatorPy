@@ -7,9 +7,8 @@ from Operators_Dictionary import is_cur_operator_unary_r_in_equation
 
 
 def main():
-    gotten_input = "552 - 572 ! 4"
+    gotten_input = " - -     7213 !"
     equ = Equation(gotten_input)
-
 
     make_tree(Equation(gotten_input))
 

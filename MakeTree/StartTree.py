@@ -9,7 +9,6 @@ from Operators_Dictionary import is_operator_unary_l, is_operator, is_cur_operat
 from Stack import Stack
 
 def start_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree, Equation, Stack, int):
-    next(equ)
     equ.remove_white_space()
 
     if is_operand(equ.curr()):
