@@ -1,7 +1,7 @@
 from BinTree import BinTree
 from CreateEquationTree import print_tree
 from Equation import Equation
-from MakeTree.States import TREE_PRIO
+from MakeTree.States import TREE_PRIO, TREE_OPER
 from Operand import Operand
 from Operators.Minus import Minus
 from Operators.Operator import Operator
@@ -48,10 +48,15 @@ def insert_to_tree_operator_unary_left(tree : BinTree, oper : Operator, prev_tre
         tree.set_info((oper, oper.get_unary_l_priority()))
     else:
         # needs to come before the binary no matter the priority
-        tree.set_right((oper, oper.get_unary_l_priority()), tree.get_right())
-        if not isinstance(oper, Minus):
-            prev_trees.push(tree)
-            tree = tree.get_right()
+        if isinstance(oper, Minus):
+            tree.set_right((oper, oper.get_unary_l_priority()), tree.get_right())
+        else:
+            if tree.get_right() is None or not isinstance(tree.get_right().get_info()[TREE_OPER], Minus):
+                tree.set_right((oper, oper.get_unary_l_priority()), tree.get_right())
+                prev_trees.push(tree)
+                tree = tree.get_right()
+            else:
+                raise SyntaxError("Somthing with a unary number assigned minus cant be before tilde?")
 
     return tree, prev_trees
 

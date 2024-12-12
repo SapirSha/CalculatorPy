@@ -13,7 +13,7 @@ def print_tree(tree : BinTree):
     print_tree(tree.get_right())
 
 def main():
-    gotten_input = "(5+7)! - 25 ^ (2-(1+3))"
+    gotten_input = "1 - ~ - - 3 "
     equ = Equation(gotten_input)
 
     print(equ)
