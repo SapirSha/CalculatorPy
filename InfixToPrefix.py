@@ -1,7 +1,7 @@
 from BinTree import BinTree
 from Stack import Stack
 
-equ = ("5+7!!@!!-3")
+equ = "5+7!!@!!-3"
 index = 0
 
 dic_oper = {
