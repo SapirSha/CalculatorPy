@@ -32,6 +32,7 @@ def insert_to_tree_operator_binary(tree : BinTree, oper : Operator, prev_trees :
     else:
         while tree.get_info()[TREE_PRIO] >= oper.get_binary_priority() and not prev_trees.is_empty():
             tree = prev_trees.pop()
+
         if tree.get_info()[TREE_PRIO] >= oper.get_binary_priority():
             tree = BinTree((oper, oper.get_binary_priority()), tree)
 

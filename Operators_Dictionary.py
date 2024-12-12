@@ -42,6 +42,7 @@ def create_operators_dictionary():
 def get_operator(symbol: str) -> Operator:
     return operators_dictionary.get(symbol)
 
+
 def is_operator(symbol: str) -> bool:
     return get_operator(symbol) is not None
 
@@ -57,7 +58,8 @@ def is_operator_unary_l(symbol: str) -> bool:
 def is_operator_unary_r(symbol: str) -> bool:
     return is_operator(symbol) and isinstance(get_operator(symbol), UnaryROperator)
 
-def is_cur_operator_unary_r_in_equation(equ : Equation) -> bool:
+
+def is_cur_operator_unary_r_in_equation(equ: Equation) -> bool:
     current = equ.curr()
 
     if not is_operator_unary_r(current):
@@ -80,26 +82,13 @@ def is_cur_operator_unary_r_in_equation(equ : Equation) -> bool:
     # compare with the next operator
     operc = get_operator(current)
     opern = get_operator(next_symb)
-    if isinstance(opern, UnaryROperator) and not isinstance(opern, BinaryOperator) and not isinstance(opern, UnaryLOperator):
+    if (isinstance(opern, UnaryROperator) or isinstance(opern, BinaryOperator)) and not isinstance(opern,
+                                                                                                   UnaryLOperator):
         return True
-    elif not isinstance(opern, UnaryROperator) and  isinstance(opern, BinaryOperator) and not isinstance(opern, UnaryLOperator):
-        return True
-    if not isinstance(opern, UnaryROperator) and not isinstance(opern, BinaryOperator) and isinstance(opern, UnaryLOperator):
-        return False
-    if isinstance(opern, UnaryROperator) and isinstance(opern, BinaryOperator) and not isinstance(opern, UnaryLOperator):
-        return True
-    if isinstance(opern, UnaryROperator) and not isinstance(opern, BinaryOperator) and isinstance(opern, UnaryLOperator):
-        pass # -------------------------------------------------------------
-    if not isinstance(opern, UnaryROperator) and  isinstance(opern, BinaryOperator) and isinstance(opern, UnaryLOperator):
-        if opern.get_unary_l_priority() <= operc.get_unary_r_priority():
-            return True
-        pass # -------------------
-    if  isinstance(opern, UnaryROperator) and  isinstance(opern, BinaryOperator) and isinstance(opern, UnaryLOperator):
+    else:
         priol, priob, prior = opern.get_unary_l_priority(), opern.get_binary_priority(), opern.get_unary_r_priority()
-        if max(operc.get_unary_r_priority(), priol, priob,prior) == operc.get_unary_r_priority():
-            return True
-        elif max(operc.get_unary_r_priority(), priol, priob,prior) == priol:
-            pass # ----------------------------------------------------------------
+        if max(operc.get_unary_r_priority(), priol, priob, prior) == priol:
+            return False
         else:
             return True
 
@@ -107,8 +96,10 @@ def is_cur_operator_unary_r_in_equation(equ : Equation) -> bool:
 def expected_binary(tree: BinTree):
     return tree.get_left() is not None and tree.get_right() is not None
 
+
 def expected_unary_r(tree: BinTree):
     return tree.get_left() is not None and tree.get_right() is None
+
 
 def expected_unary_l(tree: BinTree):
     return tree.get_left() is None and tree.get_right() is not None

@@ -12,3 +12,4 @@ class States(Enum):
     operator_binary = 4
     open_brackets = 5
     close_brackets = 6
+    after_brackets = 7
