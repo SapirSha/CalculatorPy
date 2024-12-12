@@ -16,9 +16,8 @@ class Operator(ABC):
     def get_max_prio(self):
         return max(self.binary_priority, self.unary_left_priority, self.unary_right_priority)
 
-    def get_unary_r_priority(self) -> int:
+    def get_unary_r_priority(self):
         return self.unary_right_priority
-
 
     def get_unary_l_priority(self):
         return self.unary_left_priority

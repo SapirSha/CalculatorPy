@@ -4,7 +4,7 @@ from Operators.UnaryLOperator import UnaryLOperator
 class Minus(BinaryOperator, UnaryLOperator):
     symbol = '-'
     binary_priority = 1
-    unary_left_priority = 6
+    unary_left_priority = 2.5
 
 
     def binary_operation(self, left_operand, right_operand):

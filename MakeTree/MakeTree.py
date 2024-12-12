@@ -1,7 +1,9 @@
 from BinTree import BinTree
 from Equation import Equation
 from MakeTree.OperandTree import operand_tree
+from MakeTree.OperatorBinaryTree import operator_binary_tree
 from MakeTree.OperatorUnaryLeftTree import operator_unary_left_tree
+from MakeTree.OperatorUnaryRight import operator_unary_right_tree
 from MakeTree.StartTree import start_tree
 from MakeTree.States import States
 from Stack import Stack
@@ -25,11 +27,9 @@ def make_tree(equ : Equation) -> (Equation, BinTree):
             if state == States.start:
                 tree, equ, prev_trees, state = start_tree(tree, equ, prev_trees)
             elif state == States.operator_binary:
-                print("Binary")
-                break
+                tree, equ, prev_trees, state = operator_binary_tree(tree, equ, prev_trees)
             elif state == States.operator_unary_right:
-                print("right")
-                break
+                tree, equ, prev_trees, state = operator_unary_right_tree(tree, equ, prev_trees)
             elif state == States.operator_unary_left:
                 tree, equ, prev_trees, state = operator_unary_left_tree(tree, equ, prev_trees)
             elif state == States.operand:
@@ -47,6 +47,5 @@ def make_tree(equ : Equation) -> (Equation, BinTree):
         print_tree(tree)
     else:
         print_tree(prev_trees.peek())
-
 
     return equ, tree

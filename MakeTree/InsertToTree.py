@@ -8,6 +8,7 @@ from Stack import Stack
 
 
 def insert_to_tree_operator_unary_right(tree : BinTree, oper : Operator, prev_trees: Stack) -> (BinTree, Stack):
+
     if tree.get_info() is None:
         tree.set_info((oper, oper.get_unary_r_priority()))
     else:
@@ -17,7 +18,7 @@ def insert_to_tree_operator_unary_right(tree : BinTree, oper : Operator, prev_tr
         if tree.get_info()[TREE_PRIO] >= oper.get_unary_r_priority():
             tree = BinTree((oper, oper.get_unary_r_priority()), tree)
         else:
-            tree.set_right((oper, oper.get_unary_r_priority()), tree.get_left(),tree.get_right())
+            tree.set_right((oper, oper.get_unary_r_priority()), tree.get_right())
             prev_trees.push(tree)
             tree = tree.get_right()
 
@@ -33,7 +34,7 @@ def insert_to_tree_operator_binary(tree : BinTree, oper : Operator, prev_trees :
             tree = BinTree((oper, oper.get_binary_priority()), tree)
 
         else:
-            tree.set_right((oper, oper.get_binary_priority()), tree.get_left(), tree.get_right())
+            tree.set_right((oper, oper.get_binary_priority()), tree.get_right())
             prev_trees.push(tree)
             tree = tree.get_right()
 
@@ -43,6 +44,9 @@ def insert_to_tree_operator_unary_left(tree : BinTree, oper : Operator, prev_tre
     if tree.get_info() is None:
         tree.set_info((oper, oper.get_unary_l_priority()))
     else:
-        pass
+        # needs to come before the binary no matter the priority
+        tree.set_right((oper, oper.get_unary_l_priority()), tree.get_right())
+        prev_trees.push(tree)
+        tree = tree.get_right()
 
     return tree, prev_trees

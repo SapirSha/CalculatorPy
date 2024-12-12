@@ -89,9 +89,9 @@ def is_cur_operator_unary_r_in_equation(equ : Equation) -> bool:
     if isinstance(opern, UnaryROperator) and not isinstance(opern, BinaryOperator) and isinstance(opern, UnaryLOperator):
         pass # -------------------------------------------------------------
     if not isinstance(opern, UnaryROperator) and  isinstance(opern, BinaryOperator) and isinstance(opern, UnaryLOperator):
-        if opern.get_unary_l_priority() > operc.get_unary_r_priority():
-            return False
-        return True
+        if opern.get_unary_l_priority() <= operc.get_unary_r_priority():
+            return True
+        pass # -------------------
     if  isinstance(opern, UnaryROperator) and  isinstance(opern, BinaryOperator) and isinstance(opern, UnaryLOperator):
         priol, priob, prior = opern.get_unary_l_priority(), opern.get_binary_priority(), opern.get_unary_r_priority()
         if max(operc.get_unary_r_priority(), priol, priob,prior) == operc.get_unary_r_priority():
