@@ -10,6 +10,7 @@ from Operators.ExclamationMark import ExclamationMark
 from Operators.Slash import Slash
 from Operators.Minus import Minus
 from Operators.Plus import Plus
+from Operators.Tilde import Tilde
 from Operators.UnaryLOperator import UnaryLOperator
 from Operators.UnaryROperator import UnaryROperator
 
@@ -19,7 +20,8 @@ OPERATORS = [
     Asterisk(),
     Slash(),
     Caret(),
-    ExclamationMark()
+    ExclamationMark(),
+    Tilde()
 ]
 
 operators_dictionary = {}

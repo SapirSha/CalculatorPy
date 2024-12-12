@@ -14,9 +14,9 @@ def operator_binary_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> 
         tree.set_right(Operand(int(equ.curr())))
         return tree, equ, prev_trees, States.operand
     elif is_operator_unary_l(equ.curr()):
-        insert_to_tree_operator_unary_left(tree, get_operator(equ.curr()), prev_trees)
+        tree, prev_trees = insert_to_tree_operator_unary_left(tree, get_operator(equ.curr()), prev_trees)
         return tree, equ, prev_trees, States.operator_unary_left
     elif equ.curr() == '(':
-        pass
+        return tree, equ, prev_trees, States.open_brackets
     else:
         raise SyntaxError(" after binary operator has to be ( \ operand \ operator left")

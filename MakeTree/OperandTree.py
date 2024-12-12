@@ -26,7 +26,7 @@ def operand_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree
             tree, prev_trees = insert_to_tree_operator_binary(tree, get_operator(equ.curr()), prev_trees)
             return tree, equ, prev_trees, States.operator_binary
         elif equ.curr() == ')':
-            pass
+            return tree, equ, prev_trees, States.close_brackets
         else:
             raise SyntaxError("after operand may only come right unary operator \ operator \ )")
 

@@ -1,7 +1,8 @@
 from BinTree import BinTree
 from Equation import Equation
 from MakeTree.InsertToTree import insert_to_tree_operator_unary_right, insert_to_tree_operator_binary, \
-    insert_to_tree_operator_unary_left
+    insert_to_tree_operator_unary_left, insert_to_tree_operand
+from MakeTree.MakeTree import make_tree
 from MakeTree.States import States
 from Operand import is_operand, Operand
 from Operators_Dictionary import is_operator_unary_l, is_operator, is_cur_operator_unary_r_in_equation, get_operator, \
@@ -38,7 +39,23 @@ def start_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree, 
         return tree, equ, prev_trees, States.operator_unary_left
 
     elif equ.curr() == '(':
-        pass
+        equ, temp_tree = make_tree(equ)
+
+        tree.set_left_tree(temp_tree)
+        equ.remove_white_space()
+
+        next(equ)
+        equ.remove_white_space()
+
+        if is_cur_operator_unary_r_in_equation(equ):
+            tree, prev_trees = insert_to_tree_operator_unary_right(tree, get_operator(equ.curr()), prev_trees)
+            return tree, equ, prev_trees, States.operator_unary_right
+        elif is_operator_binary(equ.curr()):
+            tree, prev_trees = insert_to_tree_operator_binary(tree, get_operator(equ.curr()), prev_trees)
+            return tree, equ, prev_trees, States.operator_binary
+        else:
+            raise SyntaxError("Incorrect syntax: " + equ.curr() + ", when expecting operator after )")
+
     else:
         #Errors:
         if is_operator(equ.curr()):

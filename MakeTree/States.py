@@ -9,5 +9,6 @@ class States(Enum):
     operator_unary_left = 1
     operand = 2
     operator_unary_right = 3
-    whitespace = 4
-    operator_binary = 5
+    operator_binary = 4
+    open_brackets = 5
+    close_brackets = 6

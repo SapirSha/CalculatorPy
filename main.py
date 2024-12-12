@@ -7,7 +7,7 @@ from Operators_Dictionary import is_cur_operator_unary_r_in_equation
 
 
 def main():
-    gotten_input = "1 + 2 * 3 ^ 4 * 5 + 6"
+    gotten_input = ""
     equ = Equation(gotten_input)
 
     make_tree(Equation(gotten_input))

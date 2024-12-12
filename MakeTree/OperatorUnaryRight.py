@@ -17,6 +17,6 @@ def operator_unary_right_tree(tree : BinTree, equ : Equation, prev_trees : Stack
         tree, prev_trees = insert_to_tree_operator_binary(tree, get_operator(equ.curr()), prev_trees)
         return tree, equ, prev_trees, States.operator_binary
     elif equ.curr() == ')':
-        pass
+        return tree, equ, prev_trees, States.close_brackets
     else:
         raise SyntaxError(" after unary right must come another unary right, binary or ')'")
