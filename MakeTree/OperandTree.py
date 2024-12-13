@@ -1,7 +1,10 @@
 from BinTree import BinTree
+from CreateEquationTree import print_tree
 from Equation import Equation
-from MakeTree.InsertToTree import insert_to_tree_operator_unary_right, insert_to_tree_operator_binary
+from MakeTree.InsertToTree import insert_to_tree_operator_unary_right, insert_to_tree_operator_binary, \
+    insert_to_tree_operand
 from MakeTree.States import States
+from MakeTree.UtilsOperandTree import get_operand_from_equ
 from Operand import is_operand
 from MakeTree.IsOperatorTypes import is_cur_operator_unary_r_in_equation, get_operator, is_operator_binary
 from Stack import Stack
@@ -9,8 +12,10 @@ from Stack import Stack
 
 def operand_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree, Equation, Stack, int):
 
+
     if is_operand(equ.curr()):
-        tree.set_right(tree.get_right().get_info() * 10 + int(equ.curr()))
+        equ, oper = get_operand_from_equ(equ)
+        insert_to_tree_operand(tree,oper,prev_trees)
         return tree, equ, prev_trees, States.operand
     elif equ.curr() == '.':
         pass

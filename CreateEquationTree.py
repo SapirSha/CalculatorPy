@@ -195,6 +195,8 @@ def print_tree(tree: BinTree):
         return
     if isinstance(tree.get_info(), Operand):
         print(tree.get_info(), end=' ')
+    elif tree.get_info() is None:
+        pass
     else:
         print(tree.get_info()[OPERATOR_AT_TREE], end=' ')
     print_tree(tree.get_left())
