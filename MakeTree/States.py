@@ -13,3 +13,4 @@ class States(Enum):
     open_brackets = 5
     close_brackets = 6
     after_brackets = 7
+    end = -1

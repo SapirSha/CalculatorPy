@@ -1,3 +1,4 @@
+
 from BinTree import BinTree
 from Equation import Equation
 from MakeTree.AfterBracketsTree import after_brackets_tree
@@ -41,13 +42,19 @@ def make_tree(equ : Equation) -> (Equation, BinTree):
                 break
             elif state == States.after_brackets:
                 tree, equ, prev_trees, state = after_brackets_tree(tree,equ , prev_trees)
+            elif state == States.end:
+                break
             else:
                 break
 
     except StopIteration:
-        pass
+        print("STOP ITERATION")
     except SyntaxError as e:
-        print("At index: " + str(equ.index) + ", " +str(e))
+        print(equ.index * ' ' + '^')
+        print(e)
+
+
+
 
 
     while not prev_trees.is_empty():

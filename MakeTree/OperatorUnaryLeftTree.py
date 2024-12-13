@@ -3,7 +3,7 @@ from Equation import Equation
 from MakeTree.InsertToTree import insert_to_tree_operator_unary_left, insert_to_tree_operand
 from MakeTree.States import States
 from Operand import is_operand, Operand
-from Operators_Dictionary import is_operator_unary_l, get_operator
+from MakeTree.IsOperatorTypes import is_operator_unary_l, get_operator
 from Stack import Stack
 
 
