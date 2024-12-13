@@ -16,7 +16,7 @@ def start_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree, 
 
     if is_operand(equ.curr()):
         equ, oper = get_operand_from_equ(equ)
-        tree.set_left(oper)
+        tree.set_info(oper)
         return tree, equ, prev_trees, States.operand
 
     elif is_operator_unary_l(equ.curr()):

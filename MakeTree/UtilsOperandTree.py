@@ -18,6 +18,8 @@ def get_operand_from_equ(equ : Equation) -> (Equation, Operand):
     if equ.curr() == '.':
         try:
             next(equ)
+            if not is_operand(equ.curr()):
+                raise SyntaxError("ENDING WITH .?")
         except StopIteration:
             raise SyntaxError("ENDING WITH .?")
         temp2 = 0

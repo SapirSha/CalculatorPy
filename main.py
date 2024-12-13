@@ -17,7 +17,7 @@ def main():
     equ = Equation("12223.567")
     next(equ)
 
-    gotten_input = " 1.23 * 2.31 ^ 32.0 - ~ - 2.1 "
+    gotten_input = "3.1415926535898!#!"
     equ = Equation(gotten_input)
 
     print(equ)

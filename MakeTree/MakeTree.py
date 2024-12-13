@@ -48,7 +48,7 @@ def make_tree(equ : Equation) -> (Equation, BinTree):
                 break
 
     except StopIteration:
-        print("STOP ITERATION")
+        pass
     except SyntaxError as e:
         print(equ.index * ' ' + '^')
         print(e)

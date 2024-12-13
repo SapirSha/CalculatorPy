@@ -12,9 +12,7 @@ def operator_binary_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> 
     equ.remove_white_space()
 
     if is_operand(equ.curr()):
-        print(equ.index, equ.curr())
         equ, oper = get_operand_from_equ(equ)
-        print(oper)
         insert_to_tree_operand(tree,oper,prev_trees)
         return tree, equ, prev_trees, States.operand
     elif is_operator_unary_l(equ.curr()):
