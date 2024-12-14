@@ -1,5 +1,4 @@
 from BinTree import BinTree
-from CreateEquationTree import print_tree
 from Equation import Equation
 from MakeTree.InsertToTree import insert_to_tree_operator_unary_right, insert_to_tree_operator_binary
 from MakeTree.States import States

@@ -1,5 +1,4 @@
 from BinTree import BinTree
-from CreateEquationTree import print_tree
 from Equation import Equation
 from MakeTree.InsertToTree import insert_to_tree_operator_unary_right, insert_to_tree_operator_binary, \
     insert_to_tree_operator_unary_left, insert_to_tree_operand
@@ -12,7 +11,7 @@ from MakeTree.IsOperatorTypes import is_operator_unary_l, is_operator, is_cur_op
 from Operators_Dictionary import OPEN_BRACKETS, CLOSE_BRACKETS
 from Stack import Stack
 
-def start_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree, Equation, Stack, int):
+def start_tree(tree : BinTree, equ : Equation, prev_trees : Stack):
     equ.remove_white_space()
 
     if is_operand(equ.curr()):

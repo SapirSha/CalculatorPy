@@ -1,5 +1,4 @@
 from BinTree import BinTree
-from CreateEquationTree import print_tree
 from Equation import Equation
 from MakeTree.States import TREE_PRIO, TREE_OPER
 from Operand import Operand

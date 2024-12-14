@@ -15,11 +15,11 @@ def count_brackets(equ : Equation):
             elif char in CLOSE_BRACKETS:
                 if brackets_stack.is_empty():
                     equ.index = 0
-                    raise SyntaxError("Missing Open Brackets")
+                    raise SyntaxError("Missing Open Brackets (Invalid amount of closing brackets)")
                 if DIC_BRACKETS.get(brackets_stack.pop()) == char:
                     pass
                 else:
-                    raise SyntaxError("Incorrect Brackets Placement")
+                    raise SyntaxError("Incorrect Brackets Placement ( Brackets types are shuffled)")
 
     if not brackets_stack.is_empty():
-        raise SyntaxError("Missing Close Brackets")
+        raise SyntaxError("Missing Close Brackets (Invalid amount of closing brackets)")

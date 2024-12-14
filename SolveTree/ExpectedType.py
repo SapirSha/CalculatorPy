@@ -5,7 +5,8 @@ TREE_PRIO = 1
 TREE_OPER = 0
 
 class ExpectedType(Enum):
-    operand = 0
-    operator_binary = 1
-    operator_unary_left = 2
-    operator_unary_right = 3
+    from SolveTree.ExpectedOper import expected_operand, expected_operator_binary, expected_operator_unary_left, expected_operator_unary_right
+    operand = expected_operand
+    operator_binary = expected_operator_binary
+    operator_unary_left = expected_operator_unary_left
+    operator_unary_right = expected_operator_unary_right

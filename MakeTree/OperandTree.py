@@ -1,5 +1,4 @@
 from BinTree import BinTree
-from CreateEquationTree import print_tree
 from Equation import Equation
 from MakeTree.InsertToTree import insert_to_tree_operator_unary_right, insert_to_tree_operator_binary, \
     insert_to_tree_operand
@@ -27,9 +26,10 @@ def operand_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree
     else:
         #Errors
         if is_operand(equ.curr()):
+            equ.prev()
             raise SyntaxError("Spaces inside of an operand are not allowed")
         elif equ.curr() == '.':
-            raise SyntaxError("I think somthing fell out of your pocket. oh... its a dot")
+            raise SyntaxError("Syntax error: '.' can only be used inside an operand, and can only be used once per operand")
         elif equ.curr() in OPEN_BRACKETS:
             raise SyntaxError("Open brackets cannot come directly after operand")
         elif is_operator_unary_l(equ.curr()):
