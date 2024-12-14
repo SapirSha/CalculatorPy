@@ -6,6 +6,7 @@ from Operand import Operand
 from Operators.Minus import Minus
 from Operators.Operator import Operator
 from Operators.Tilde import Tilde
+from Operators.UnaryROperator import UnaryROperator
 from Operators_Dictionary import get_operator
 from Stack import Stack
 
@@ -37,14 +38,19 @@ def insert_to_tree_operator_binary(tree : BinTree, oper : Operator, prev_trees :
         if  isinstance(tree.get_info(), Operand):
             tree = BinTree((oper, oper.get_binary_priority()), tree)
             return tree, prev_trees
-
         while tree.get_info()[TREE_PRIO] >= oper.get_binary_priority() and not prev_trees.is_empty():
             tree = prev_trees.pop()
 
+
         if tree.get_info()[TREE_PRIO] >= oper.get_binary_priority():
             tree = BinTree((oper, oper.get_binary_priority()), tree)
-
         else:
+            if isinstance(tree.get_info()[TREE_OPER], UnaryROperator):
+                if prev_trees.is_empty():
+                    tree = BinTree((oper, oper.get_binary_priority()), tree)
+                    return tree, prev_trees
+                else:
+                    tree = prev_trees.pop()
             tree.set_right((oper, oper.get_binary_priority()), tree.get_right())
             prev_trees.push(tree)
             tree = tree.get_right()

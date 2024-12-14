@@ -14,14 +14,11 @@ def print_tree(tree : BinTree):
     print_tree(tree.get_right())
 
 def main():
-    equ = Equation("12223.567")
-    next(equ)
 
-    gotten_input = "3.1415926535898!#!"
+    gotten_input = "5 +(5)%2"
     equ = Equation(gotten_input)
 
     print(equ)
-
     equ, tree = make_tree(Equation(gotten_input))
 
     print_tree(tree)

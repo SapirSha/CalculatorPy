@@ -1,4 +1,3 @@
-
 from BinTree import BinTree
 from Equation import Equation
 from MakeTree.AfterBracketsTree import after_brackets_tree
@@ -7,7 +6,7 @@ from MakeTree.States import States
 from Stack import Stack
 
 
-def make_tree(equ : Equation) -> (Equation, BinTree):
+def make_tree(equ: Equation) -> (Equation, BinTree):
     from MakeTree.OperandTree import operand_tree
     from MakeTree.OperatorBinaryTree import operator_binary_tree
     from MakeTree.OperatorUnaryLeftTree import operator_unary_left_tree
@@ -17,7 +16,6 @@ def make_tree(equ : Equation) -> (Equation, BinTree):
     tree = BinTree()
     prev_trees = Stack()
     state = States.start
-
 
     try:
         while True:
@@ -35,13 +33,13 @@ def make_tree(equ : Equation) -> (Equation, BinTree):
             elif state == States.open_brackets:
                 equ.prev()
                 equ, temp_tree = make_tree(equ)
-                insert_to_tree_tree(tree ,temp_tree, prev_trees)
+                insert_to_tree_tree(tree, temp_tree, prev_trees)
                 state = States.after_brackets
             elif state == States.close_brackets:
                 equ.prev()
                 break
             elif state == States.after_brackets:
-                tree, equ, prev_trees, state = after_brackets_tree(tree,equ , prev_trees)
+                tree, equ, prev_trees, state = after_brackets_tree(tree, equ, prev_trees)
             elif state == States.end:
                 break
             else:
@@ -52,10 +50,6 @@ def make_tree(equ : Equation) -> (Equation, BinTree):
     except SyntaxError as e:
         print(equ.index * ' ' + '^')
         print(e)
-
-
-
-
 
     while not prev_trees.is_empty():
         tree = prev_trees.pop()
