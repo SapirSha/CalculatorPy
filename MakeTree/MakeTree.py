@@ -17,7 +17,6 @@ def make_tree(equ: Equation) -> (Equation, BinTree):
     tree = BinTree()
     prev_trees = Stack()
     state = States.start
-    brackets_stack = Stack()
 
     try:
         while True:

@@ -38,6 +38,14 @@ OPERATORS = [
 
 operators_dictionary = {}
 
+OPEN_BRACKETS = ['(']
+CLOSE_BRACKETS = [')']
+
+DIC_BRACKETS = {
+    '(' : ')',
+    ')' : '('
+}
+
 
 def create_operators_dictionary():
     global operators_dictionary

@@ -4,7 +4,7 @@ from Operand import is_operand
 from Operators.BinaryOperator import BinaryOperator
 from Operators.UnaryLOperator import UnaryLOperator
 from Operators.UnaryROperator import UnaryROperator
-from Operators_Dictionary import get_operator
+from Operators_Dictionary import get_operator, OPEN_BRACKETS, CLOSE_BRACKETS
 
 
 def is_operator(symbol: str) -> bool:
@@ -36,9 +36,9 @@ def is_cur_operator_unary_r_in_equation(equ: Equation) -> bool:
         return True
     if is_operand(next_symb):
         return False
-    elif next_symb == '(':
+    elif next_symb in OPEN_BRACKETS:
         return False
-    elif next_symb == ')':
+    elif next_symb in CLOSE_BRACKETS:
         return True
     elif not is_operator(next_symb):
         raise SyntaxError("Invalid Syntax: " + next_symb)
