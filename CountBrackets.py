@@ -3,10 +3,8 @@ from Operators_Dictionary import DIC_BRACKETS, OPEN_BRACKETS, CLOSE_BRACKETS
 from Stack import Stack
 
 
-
-def count_brackets(equ : Equation):
+def count_brackets(equ: Equation):
     brackets_stack = Stack()
-
 
     for char in equ:
         if DIC_BRACKETS.get(char) is not None:

@@ -5,8 +5,6 @@ from Stack import Stack
 
 
 def make_tree(equ: Equation) -> (Equation, BinTree):
-
-
     tree = BinTree()
     prev_trees = Stack()
     state = States.start
