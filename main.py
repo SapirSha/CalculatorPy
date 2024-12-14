@@ -18,9 +18,8 @@ def print_tree(tree : BinTree):
 
 def main():
 
-    print("remember Math range error")
 
-    gotten_input = "1.1#"
+    gotten_input = "--123#"
     equ = Equation(gotten_input)
 
     print(equ)
@@ -34,6 +33,8 @@ def main():
 
     except SyntaxError as e:
         print(e)
+    except OverflowError as e:
+        print("Maybe lower the numbers? a little to big if i may say so")
 
 
 

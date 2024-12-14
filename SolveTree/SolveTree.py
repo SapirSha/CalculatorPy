@@ -16,7 +16,7 @@ def solve_tree(tree : BinTree):
             return tree.get_info()
         else:
             print(tree.get_info())
-            raise SyntaxError(" This one's not operand?")
+            raise SyntaxError("equation isn't finished. expecting another operand ")
     elif expected_type == ExpectedType.operator_binary:
         if isinstance(tree.get_info()[TREE_OPER], BinaryOperator):
             return tree.get_info()[TREE_OPER].binary_operation(solve_tree(tree.get_left()), solve_tree(tree.get_right()))
@@ -26,11 +26,11 @@ def solve_tree(tree : BinTree):
         if isinstance(tree.get_info()[TREE_OPER], UnaryLOperator):
             return tree.get_info()[TREE_OPER].unary_l_operation(solve_tree(tree.get_right()))
         else:
-            raise SyntaxError(" not unary left?")
+            raise SyntaxError("not unary left?")
     elif expected_type == ExpectedType.operator_unary_right:
         if isinstance(tree.get_info()[TREE_OPER], UnaryROperator):
             return tree.get_info()[TREE_OPER].unary_r_operation(solve_tree(tree.get_left()))
         else:
-            raise SyntaxError("not unary right?")
+            raise SyntaxError("equation isn't finished. expecting another operand ")
 
 
