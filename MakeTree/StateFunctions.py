@@ -30,6 +30,7 @@ def state_open_brackets(tree: BinTree, equ: Equation, prev_trees: Stack):
     equ, temp_tree = make_tree(equ)
     insert_to_tree_tree(tree, temp_tree, prev_trees)
     state = state_after_brackets
+    return tree, equ, prev_trees, state
 
 def state_after_brackets(tree: BinTree, equ: Equation, prev_trees: Stack):
     from MakeTree.AfterBracketsTree import after_brackets_tree
