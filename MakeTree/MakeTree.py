@@ -1,3 +1,4 @@
+
 from BinTree import BinTree
 from Equation import Equation
 from MakeTree.AfterBracketsTree import after_brackets_tree
@@ -16,6 +17,7 @@ def make_tree(equ: Equation) -> (Equation, BinTree):
     tree = BinTree()
     prev_trees = Stack()
     state = States.start
+    brackets_stack = Stack()
 
     try:
         while True:
@@ -49,7 +51,6 @@ def make_tree(equ: Equation) -> (Equation, BinTree):
         pass
     except SyntaxError as e:
         if e.msg is not None:
-            print(equ)
             print(equ.index * ' ' + '^')
             print(e.msg)
         raise SyntaxError

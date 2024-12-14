@@ -41,7 +41,7 @@ def is_cur_operator_unary_r_in_equation(equ: Equation) -> bool:
     elif next_symb == ')':
         return True
     elif not is_operator(next_symb):
-        raise SyntaxError("Invalid Symbol: " + next_symb)
+        raise SyntaxError("Invalid Syntax: " + next_symb)
 
     # compare with the next operator
     oper_current = get_operator(current)

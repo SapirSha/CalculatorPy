@@ -18,13 +18,14 @@ def print_tree(tree : BinTree):
     print_tree(tree.get_right())
 
 def main():
-    gotten_input = "~--- 7!"
+    gotten_input = " 1+2!*3#^-4*(5+6)"
     equ = Equation(gotten_input)
 
     print(equ)
     try:
         equ, tree = make_tree(Equation(gotten_input))
         prefix = tree
+
         result = solve_tree(tree)
 
         print_tree(prefix)
@@ -32,8 +33,9 @@ def main():
         print(result)
 
     except SyntaxError as e:
-        print(equ.index * ' ' + '^')
-        print(e)
+        if e.msg is not None:
+            print(equ.index * ' ' + '^')
+            print(e)
     except OverflowError as e:
         print("Maybe lower the numbers? a little to big if i may say so")
     except CalculationError as e:

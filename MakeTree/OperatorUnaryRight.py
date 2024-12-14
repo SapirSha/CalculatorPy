@@ -3,7 +3,9 @@ from CreateEquationTree import print_tree
 from Equation import Equation
 from MakeTree.InsertToTree import insert_to_tree_operator_unary_right, insert_to_tree_operator_binary
 from MakeTree.States import States
-from MakeTree.IsOperatorTypes import is_cur_operator_unary_r_in_equation, get_operator, is_operator_binary
+from MakeTree.IsOperatorTypes import is_cur_operator_unary_r_in_equation, get_operator, is_operator_binary, \
+    is_operator_unary_l
+from Operand import is_operand
 from Stack import Stack
 
 
@@ -19,4 +21,12 @@ def operator_unary_right_tree(tree : BinTree, equ : Equation, prev_trees : Stack
     elif equ.curr() == ')':
         return tree, equ, prev_trees, States.close_brackets
     else:
-        raise SyntaxError(" after unary right must come another unary right, binary or ')'")
+        #Errors
+        if is_operator_unary_l(equ.curr()):
+            raise SyntaxError("Operator-unary-left cannot come after operator-unary-right")
+        elif equ.curr() == '(':
+            raise SyntaxError("Missing operator-binary between operator-unary-right and Open brackets '(")
+        elif is_operand(equ.curr()):
+            raise SyntaxError("Operand cannot come right after operator-unary-right")
+        else:
+            raise SyntaxError("Invalid Syntax: " + equ.curr())

@@ -6,7 +6,8 @@ from MakeTree.InsertToTree import insert_to_tree_operator_unary_right, insert_to
 from MakeTree.States import States
 from MakeTree.UtilsOperandTree import get_operand_from_equ
 from Operand import is_operand
-from MakeTree.IsOperatorTypes import is_cur_operator_unary_r_in_equation, get_operator, is_operator_binary
+from MakeTree.IsOperatorTypes import is_cur_operator_unary_r_in_equation, get_operator, is_operator_binary, \
+    is_operator_unary_l
 from Stack import Stack
 
 
@@ -23,12 +24,17 @@ def operand_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree
     elif equ.curr() == ')':
         return tree, equ, prev_trees, States.close_brackets
     else:
+        #Errors
         if is_operand(equ.curr()):
             raise SyntaxError("Spaces inside of an operand are not allowed")
         elif equ.curr() == '.':
             raise SyntaxError("I think somthing fell out of your pocket. oh... its a dot")
+        elif equ.curr() == '(':
+            raise SyntaxError("Open brackets cannot come directly after operand")
+        elif is_operator_unary_l(equ.curr()):
+            raise SyntaxError("Operator unary left may not come After Operand")
         else:
-            raise SyntaxError("after operand may only come right unary operator \ operator \ )")
+            raise SyntaxError("Invalid Syntax: " + equ.curr())
 
 
 

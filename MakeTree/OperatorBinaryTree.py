@@ -4,7 +4,8 @@ from MakeTree.InsertToTree import insert_to_tree_operator_unary_left, insert_to_
 from MakeTree.States import States
 from MakeTree.UtilsOperandTree import get_operand_from_equ
 from Operand import is_operand, Operand
-from MakeTree.IsOperatorTypes import is_operator_unary_l, get_operator
+from MakeTree.IsOperatorTypes import is_operator_unary_l, get_operator, is_cur_operator_unary_r_in_equation, \
+    is_operator_binary
 from Stack import Stack
 
 
@@ -21,4 +22,12 @@ def operator_binary_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> 
     elif equ.curr() == '(':
         return tree, equ, prev_trees, States.open_brackets
     else:
-        raise SyntaxError(" after binary operator has to be ( \ operand \ operator left")
+        #Errors
+        if is_cur_operator_unary_r_in_equation(equ):
+            raise SyntaxError("Operator-unary-right cannot come after a operator-binary")
+        elif is_operator_binary(equ.curr()):
+            raise SyntaxError("Operator-binary cannot come one after another")
+        elif equ.curr() == ')':
+            raise SyntaxError("Missing operand after Operator Binary")
+        else:
+            raise SyntaxError("Invalid Syntax: " + equ.curr())

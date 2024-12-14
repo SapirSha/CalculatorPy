@@ -26,13 +26,14 @@ def start_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree, 
     elif equ.curr() == '(':
         equ, temp_tree = make_tree(equ)
         tree.set_left_tree(temp_tree)
+        next(equ)
 
         try:
             equ.remove_white_space()
         except StopIteration:
             tree = tree.get_left()
             return tree, equ, prev_trees, States.after_brackets
-        next(equ)
+
         if equ.curr() == ')':
             tree = tree.get_left()
             return tree, equ, prev_trees, States.close_brackets
