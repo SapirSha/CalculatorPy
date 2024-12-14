@@ -68,7 +68,7 @@ def insert_to_tree_operator_unary_left(tree : BinTree, oper : Operator, prev_tre
         if isinstance(tree.get_info()[TREE_OPER], Tilde) and not isinstance(oper, Minus):
             raise SyntaxError("After tilde cannot come another unary operator other then -")
         elif isinstance(oper, Minus) and not (isinstance(tree.get_info()[TREE_OPER], Minus) and tree.get_info()[TREE_PRIO] == get_operator('-').get_unary_l_priority()):
-            tree.set_right((oper, "Assigned Minus"), tree.get_right())
+            tree.set_right((oper, "Assigned Minus"), None, tree.get_right())
         elif isinstance(tree.get_info()[TREE_OPER], Minus) and tree.get_info()[TREE_PRIO] == get_operator('-').get_unary_l_priority() and not isinstance(oper, Minus):
             raise SyntaxError(" Operator Unary Minus must come before a number, another minus or (")
         else:

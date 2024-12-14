@@ -1,3 +1,4 @@
+
 from CreateEquationTree import create_equation_tree
 from Equation import Equation
 from BinTree import BinTree
@@ -5,6 +6,8 @@ from MakeTree.MakeTree import make_tree
 from MakeTree.UtilsOperandTree import get_operand_from_equ
 from Operand import Operand
 from MakeTree.IsOperatorTypes import is_cur_operator_unary_r_in_equation
+from SolveTree.SolveTree import solve_tree
+
 
 def print_tree(tree : BinTree):
     if tree is None:
@@ -15,13 +18,23 @@ def print_tree(tree : BinTree):
 
 def main():
 
-    gotten_input = "5 +(5)%2"
+    print("remember Math range error")
+
+    gotten_input = "5+7^3"
     equ = Equation(gotten_input)
 
     print(equ)
-    equ, tree = make_tree(Equation(gotten_input))
+    try:
+        equ, tree = make_tree(Equation(gotten_input))
+        print_tree(tree)
+        print()
+        print(solve_tree(tree))
 
-    print_tree(tree)
+        print("GOT END")
+
+    except SyntaxError as e:
+        print(e)
+
 
 
 if __name__ == "__main__":

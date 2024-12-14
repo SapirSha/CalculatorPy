@@ -48,8 +48,11 @@ def make_tree(equ: Equation) -> (Equation, BinTree):
     except StopIteration:
         pass
     except SyntaxError as e:
-        print(equ.index * ' ' + '^')
-        print(e)
+        if e.msg is not None:
+            print(equ)
+            print(equ.index * ' ' + '^')
+            print(e.msg)
+        raise SyntaxError
 
     while not prev_trees.is_empty():
         tree = prev_trees.pop()
