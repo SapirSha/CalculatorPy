@@ -44,14 +44,13 @@ def is_cur_operator_unary_r_in_equation(equ: Equation) -> bool:
         raise SyntaxError("Invalid Symbol: " + next_symb)
 
     # compare with the next operator
-    operc = get_operator(current)
-    opern = get_operator(next_symb)
-    if (isinstance(opern, UnaryROperator) or isinstance(opern, BinaryOperator)) and not isinstance(opern,
-                                                                                                   UnaryLOperator):
+    oper_current = get_operator(current)
+    oper_next = get_operator(next_symb)
+    if (isinstance(oper_next, UnaryROperator) or isinstance(oper_next, BinaryOperator)) and not isinstance(oper_next, UnaryLOperator):
         return True
     else:
-        priol, priob, prior = opern.get_unary_l_priority(), opern.get_binary_priority(), opern.get_unary_r_priority()
-        if max(operc.get_unary_r_priority(), priol, priob, prior) == priol:
-            return False
+        prio_left, prio_bin, prio_right = oper_next.get_unary_l_priority(), oper_next.get_binary_priority(), oper_next.get_unary_r_priority()
+        if max(oper_current.get_unary_r_priority(), prio_left, prio_bin, prio_right) == prio_left:
+            return False # This is somewhat troublesome
         else:
             return True

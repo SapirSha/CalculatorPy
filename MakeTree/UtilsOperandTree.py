@@ -3,9 +3,6 @@ from Operand import Operand, is_operand
 
 
 def get_operand_from_equ(equ : Equation) -> (Equation, Operand):
-    if not is_operand(equ.curr()):
-        raise Exception("NOT OPERAND")
-
     temp = 0
     try:
         while is_operand(equ.curr()):
@@ -19,9 +16,11 @@ def get_operand_from_equ(equ : Equation) -> (Equation, Operand):
         try:
             next(equ)
             if not is_operand(equ.curr()):
-                raise SyntaxError("ENDING WITH .?")
+                equ.prev()
+                raise SyntaxError("A number cannot end with '.' ")
         except StopIteration:
-            raise SyntaxError("ENDING WITH .?")
+            equ.prev()
+            raise SyntaxError("A number cannot end with '.' ")
         temp2 = 0
         count = 0
         try:

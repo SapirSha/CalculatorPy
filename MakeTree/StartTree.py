@@ -32,22 +32,13 @@ def start_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree, 
         except StopIteration:
             tree = tree.get_left()
             return tree, equ, prev_trees, States.after_brackets
-
         next(equ)
-        equ.remove_white_space()
-
-        if is_cur_operator_unary_r_in_equation(equ):
-            tree, prev_trees = insert_to_tree_operator_unary_right(tree, get_operator(equ.curr()), prev_trees)
-            return tree, equ, prev_trees, States.operator_unary_right
-        elif is_operator_binary(equ.curr()):
-            tree, prev_trees = insert_to_tree_operator_binary(tree, get_operator(equ.curr()), prev_trees)
-            return tree, equ, prev_trees, States.operator_binary
-        elif equ.curr() == ')':
+        if equ.curr() == ')':
             tree = tree.get_left()
             return tree, equ, prev_trees, States.close_brackets
         else:
-            raise SyntaxError("Incorrect syntax: " + equ.curr() + ", when expecting operator after )")
-
+            equ.prev()
+            return tree, equ, prev_trees, States.after_brackets
     else:
         #Errors:
         if is_operator(equ.curr()):

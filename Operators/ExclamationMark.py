@@ -1,5 +1,6 @@
 from Operand import Operand
 from Operators.UnaryROperator import UnaryROperator
+from SolveTree.CalculationError import CalculationError
 
 
 class ExclamationMark(UnaryROperator):
@@ -9,9 +10,9 @@ class ExclamationMark(UnaryROperator):
 
     def unary_r_operation(self, number : Operand) -> Operand:
         if number.get_data() < 0:
-            raise SyntaxError(" cant factorial a negative number")
+            raise CalculationError("Cant factorial a negative number: " + str(number.get_data()))
         elif number.get_data() != int(number.get_data()):
-            raise SyntaxError(" cant factorial a floating point number")
+            raise CalculationError("Cant factorial a floating point number: " + str(number.get_data()))
         else:
             res = 1
             while number.get_data() > 1:

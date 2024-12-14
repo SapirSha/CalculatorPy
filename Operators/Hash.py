@@ -1,5 +1,6 @@
 from Operand import Operand
 from Operators.UnaryROperator import UnaryROperator
+from SolveTree.CalculationError import CalculationError
 
 
 class Hash(UnaryROperator):
@@ -8,7 +9,7 @@ class Hash(UnaryROperator):
 
     def unary_r_operation(self, number : Operand) -> Operand:
         if number.get_data() < 0:
-            raise SyntaxError(" Hash cannot be used against a negative number")
+            raise CalculationError("Hash cannot be used with a negative number: " + str(number.get_data()))
         num = str(number.get_data())
         sum_of_digits = 0
         for digit in num:

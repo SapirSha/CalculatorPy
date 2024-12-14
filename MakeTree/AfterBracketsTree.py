@@ -10,9 +10,7 @@ from Stack import Stack
 def after_brackets_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree, Equation, Stack, int):
     equ.remove_white_space()
 
-    if is_operand(equ.curr()):
-        raise SyntaxError(" Operand after ) not allowed")
-    elif is_cur_operator_unary_r_in_equation(equ):
+    if is_cur_operator_unary_r_in_equation(equ):
         tree, prev_trees = insert_to_tree_operator_unary_right(tree, get_operator(equ.curr()), prev_trees)
         return tree, equ, prev_trees, States.operator_unary_right
     elif is_operator_binary(equ.curr()):
@@ -21,4 +19,5 @@ def after_brackets_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (
     elif equ.curr() == ')':
         return tree, equ, prev_trees, States.close_brackets
     else:
-        raise SyntaxError("after operand may only come right unary operator \ operator \ )")
+        raise SyntaxError(
+            "After closing brackets ')' may only come: Operator-unary-right / Operator-binary / other closing brackets ')' instead got: " + equ.curr())
