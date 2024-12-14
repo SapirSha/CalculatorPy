@@ -27,7 +27,7 @@ def solve_tree(tree : BinTree):
             return tree.get_info()[TREE_OPER].unary_l_operation(solve_tree(tree.get_right()))
         else:
             raise SyntaxError(" not unary left?")
-    elif expected_type == ExpectedType.operator_unary_left:
+    elif expected_type == ExpectedType.operator_unary_right:
         if isinstance(tree.get_info()[TREE_OPER], UnaryROperator):
             return tree.get_info()[TREE_OPER].unary_r_operation(solve_tree(tree.get_left()))
         else:

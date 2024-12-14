@@ -20,7 +20,7 @@ def main():
 
     print("remember Math range error")
 
-    gotten_input = "5+7^3"
+    gotten_input = "1.1#"
     equ = Equation(gotten_input)
 
     print(equ)
