@@ -1,7 +1,7 @@
 from Equation import Equation
 from Operand import Operand, is_operand
 
-
+# gets operand from equation (including floating point)
 def get_operand_from_equ(equ : Equation) -> (Equation, Operand):
     temp = 0
     try:

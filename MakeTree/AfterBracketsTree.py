@@ -9,7 +9,8 @@ from Operators_Dictionary import CLOSE_BRACKETS, OPEN_BRACKETS
 from Stack import Stack
 
 
-def after_brackets_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree, Equation, Stack, int):
+# this function represent a state where the previous gotten input was closing brackets
+def after_brackets_tree(tree: BinTree, equ: Equation, prev_trees: Stack) -> (BinTree, Equation, Stack, int):
     equ.remove_white_space()
 
     if is_cur_operator_unary_r_in_equation(equ):

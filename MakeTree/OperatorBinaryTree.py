@@ -3,13 +3,13 @@ from Equation import Equation
 from MakeTree.InsertToTree import insert_to_tree_operator_unary_left, insert_to_tree_operand
 from MakeTree.States import States
 from MakeTree.UtilsOperandTree import get_operand_from_equ
-from Operand import is_operand, Operand
+from Operand import is_operand
 from MakeTree.IsOperatorTypes import is_operator_unary_l, get_operator, is_cur_operator_unary_r_in_equation, \
     is_operator_binary
 from Operators_Dictionary import OPEN_BRACKETS, CLOSE_BRACKETS
 from Stack import Stack
 
-
+# this function represent a state where the previous gotten input was binary operator
 def operator_binary_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree, Equation, Stack, int):
     equ.remove_white_space()
 

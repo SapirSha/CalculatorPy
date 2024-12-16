@@ -1,3 +1,4 @@
+# a class to hold the equation and iterate through it
 class Equation:
     _equation = None
 
@@ -28,6 +29,7 @@ class Equation:
     def get(self, index) ->str:
         return self._equation[index]
 
+    #get the next non-white char (without moving index)
     def next_non_space(self) ->str:
         i = self.index
         try:
@@ -37,6 +39,7 @@ class Equation:
         except IndexError as e:
             raise StopIteration
 
+    #get the next non-white char (and mov the index there)
     def remove_white_space(self):
         try:
             while self.curr().isspace():

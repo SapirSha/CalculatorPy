@@ -21,6 +21,3 @@ class Stack:
 
     def peek(self):
         return self.stack.info
-
-    def is_last_one(self):
-        return self.stack.next.info is None

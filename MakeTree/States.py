@@ -3,9 +3,11 @@ from enum import Enum
 from MakeTree.StateFunctions import state_start, state_operator_unary_left, state_operand, state_operator_unary_right, \
     state_operator_binary, state_open_brackets, state_close_brackets, state_after_brackets
 
+# tree holds both Priority and the operator, that it the same operator may have multiple priority's, such as in minus unary and minus binary
 TREE_PRIO = 1
 TREE_OPER = 0
 
+# enum that holds the functions for each state
 class States(Enum):
     start = state_start
     operator_unary_left = state_operator_unary_left

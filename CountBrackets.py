@@ -3,11 +3,12 @@ from Operators_Dictionary import DIC_BRACKETS, OPEN_BRACKETS, CLOSE_BRACKETS
 from Stack import Stack
 
 
+# checks if the brackets are placed correctly
 def count_brackets(equ: Equation):
     brackets_stack = Stack()
 
     for char in equ:
-        if DIC_BRACKETS.get(char) is not None:
+        if char in OPEN_BRACKETS or char in CLOSE_BRACKETS:
             if char in OPEN_BRACKETS:
                 brackets_stack.push(char)
             elif char in CLOSE_BRACKETS:
@@ -17,7 +18,7 @@ def count_brackets(equ: Equation):
                 if DIC_BRACKETS.get(brackets_stack.pop()) == char:
                     pass
                 else:
-                    raise SyntaxError("Incorrect Brackets Placement ( Brackets types are shuffled)")
+                    raise SyntaxError("Incorrect Brackets Placement ( brackets mashup )")
 
     if not brackets_stack.is_empty():
         raise SyntaxError("Missing Close Brackets (Invalid amount of closing brackets)")

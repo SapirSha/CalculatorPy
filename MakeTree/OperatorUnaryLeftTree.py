@@ -9,7 +9,7 @@ from MakeTree.IsOperatorTypes import is_operator_unary_l, get_operator, is_cur_o
 from Operators_Dictionary import OPEN_BRACKETS, CLOSE_BRACKETS
 from Stack import Stack
 
-
+# this function represent a state where the previous gotten input was unary-left operator
 def operator_unary_left_tree(tree : BinTree, equ : Equation, prev_trees : Stack) -> (BinTree, Equation, Stack, int):
     equ.remove_white_space()
 

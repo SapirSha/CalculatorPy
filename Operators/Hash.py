@@ -1,4 +1,5 @@
 from Operand import Operand
+from Operators.BinaryOperator import BinaryOperator
 from Operators.UnaryROperator import UnaryROperator
 from SolveTree.CalculationError import CalculationError
 
@@ -13,7 +14,9 @@ class Hash(UnaryROperator):
         num = str(number.get_data())
         sum_of_digits = 0
         for digit in num:
-            if digit != '.':
+            if digit.lower() == 'e':
+                return Operand(sum_of_digits)
+            elif digit != '.':
                 sum_of_digits += int(digit)
 
         return Operand(sum_of_digits)

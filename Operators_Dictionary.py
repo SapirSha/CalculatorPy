@@ -1,14 +1,7 @@
-from typing import Hashable
-
-from BinTree import BinTree
-from Equation import Equation
-from Operand import is_operand
 from Operators.Ampersand import Ampersand
 from Operators.AtSign import AtSign
-from Operators.BinaryOperator import BinaryOperator
 from Operators.Dollar import Dollar
 from Operators.Operator import Operator
-
 from Operators.Asterisk import Asterisk
 from Operators.Caret import Caret
 from Operators.ExclamationMark import ExclamationMark
@@ -18,9 +11,8 @@ from Operators.Minus import Minus
 from Operators.Plus import Plus
 from Operators.Tilde import Tilde
 from Operators.Hash import Hash
-from Operators.UnaryLOperator import UnaryLOperator
-from Operators.UnaryROperator import UnaryROperator
 
+# this list holds all the operators instances that are active
 OPERATORS = [
     Plus(),
     Minus(),
@@ -36,17 +28,19 @@ OPERATORS = [
     Hash()
 ]
 
+# this dictionary will hold the symbol of the operator as its key and the operator instance as its value
 operators_dictionary = {}
 
-OPEN_BRACKETS = ['(']
-CLOSE_BRACKETS = [')']
+OPEN_BRACKETS = ['(']  # close brackets list
+CLOSE_BRACKETS = [')']  # open brackets list
 
+# this dictionary would hold the brackets to know which open bracket is for which close bracket {Open : Close}
 DIC_BRACKETS = {
-    '(' : ')',
-    ')' : '('
+    '(': ')',
 }
 
 
+# function to create the operators dictionary from the list: puts key as symbol and operator instance as key
 def create_operators_dictionary():
     global operators_dictionary
 
@@ -55,11 +49,12 @@ def create_operators_dictionary():
         for operator in OPERATORS:
             operators_dictionary[operator.get_symbol()] = operator
     else:
-        pass
+        pass # dictionary already created
 
-
+# retrieves the operator instance from the dictionary
 def get_operator(symbol: str) -> Operator:
     return operators_dictionary.get(symbol)
 
 
+# create dictionary at start
 create_operators_dictionary()

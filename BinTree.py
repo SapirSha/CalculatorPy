@@ -2,9 +2,6 @@
 
 class BinTree:
     def __init__(self, info = None, left = None, right = None):
-        if (type(left) != BinTree and left is not None)\
-                or (type(right) != BinTree and right is not None):
-            raise TypeError("Non Tree Son Inserted: ")
         self._left = left
         self._info = info
         self._right = right

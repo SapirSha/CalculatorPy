@@ -6,17 +6,20 @@ from MakeTree.MakeTree import make_tree
 from MakeTree.States import States
 from MakeTree.UtilsOperandTree import get_operand_from_equ
 from Operand import is_operand, Operand
-from MakeTree.IsOperatorTypes import is_operator_unary_l, is_operator, is_cur_operator_unary_r_in_equation, get_operator, \
+from MakeTree.IsOperatorTypes import is_operator_unary_l, is_operator, is_cur_operator_unary_r_in_equation, \
+    get_operator, \
     is_operator_binary
 from Operators_Dictionary import OPEN_BRACKETS, CLOSE_BRACKETS
 from Stack import Stack
 
-def start_tree(tree : BinTree, equ : Equation, prev_trees : Stack):
+
+# this function represent the start phase to start a tree
+def start_tree(tree: BinTree, equ: Equation, prev_trees: Stack):
     equ.remove_white_space()
 
     if is_operand(equ.curr()):
         equ, oper = get_operand_from_equ(equ)
-        tree.set_info(oper)
+        tree.set_info(oper) # the only time to insert an operand in the middle
         return tree, equ, prev_trees, States.operand
 
     elif is_operator_unary_l(equ.curr()):
@@ -31,9 +34,11 @@ def start_tree(tree : BinTree, equ : Equation, prev_trees : Stack):
             next(equ)
             equ.remove_white_space()
         except StopIteration:
+            # if no next put tree in the middle
             tree = tree.get_left()
             return tree, equ, prev_trees, States.after_brackets
         if equ.curr() in CLOSE_BRACKETS:
+            # if close brackets put tree in the middle
             tree = tree.get_left()
             return tree, equ, prev_trees, States.close_brackets
         else:
