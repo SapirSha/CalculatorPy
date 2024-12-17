@@ -1,16 +1,8 @@
-from BinTree import BinTree
 from CountBrackets import count_brackets
 from Equation import Equation
 from MakeTree.MakeTree import make_tree
 from SolveTree.CalculationError import CalculationError
 from SolveTree.SolveTree import solve_tree
-
-def print_tree(tree : BinTree):
-    if tree is None:
-        return
-    print(tree.get_info(), end = " ")
-    print_tree(tree.get_left())
-    print_tree(tree.get_right())
 
 # the main function the calls to solve the equation
 def solve_equation(equation : str):
@@ -22,7 +14,6 @@ def solve_equation(equation : str):
         count_brackets(equ)
         # then creates the appropriate tree for the equation
         equ, tree = make_tree(Equation(gotten_input))
-        print_tree(tree)
         # then solves the tree
         result = solve_tree(tree)
 
