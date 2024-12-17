@@ -1,5 +1,4 @@
 from Operand import Operand
-from Operators.BinaryOperator import BinaryOperator
 from Operators.UnaryROperator import UnaryROperator
 from SolveTree.CalculationError import CalculationError
 
