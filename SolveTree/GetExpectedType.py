@@ -1,8 +1,9 @@
 from BinTree import BinTree
 from SolveTree.ExpectedType import ExpectedType
 
+
 # gets expected type according to the children in the tree
-def get_expected_type(tree : BinTree):
+def get_expected_type(tree: BinTree):
     # since no children -> expected operand
     if tree.get_right() is None and tree.get_left() is None:
         return ExpectedType.operand
