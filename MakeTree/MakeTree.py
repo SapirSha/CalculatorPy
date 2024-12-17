@@ -20,7 +20,7 @@ def make_tree(equ: Equation) -> (Equation, BinTree):
     except StopIteration:
         # do be worried to add an if statement and break for close brackets if want to change this exception
         pass
-
+    # handle thrown syntax errors
     except SyntaxError as e:
         if e.msg is not None:
             print("<--- Error ------------------------------>")

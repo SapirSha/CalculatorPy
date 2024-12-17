@@ -89,7 +89,7 @@ def insert_to_tree_operator_unary_left(tree: BinTree, oper: Operator, prev_trees
         elif isinstance(oper, Minus) and not (
                 isinstance(tree.get_info()[TREE_OPER], Minus) and tree.get_info()[TREE_PRIO] == get_operator(
                 '-').get_unary_l_priority()):
-            tree.set_right((oper, "Assigned Minus"), None, tree.get_right())
+            tree.set_right((oper, "-"), None, tree.get_right())
         # if current tree's node is minus unary, can only insert another minus unary
         elif isinstance(tree.get_info()[TREE_OPER], Minus) and tree.get_info()[TREE_PRIO] == get_operator(
                 '-').get_unary_l_priority() and not isinstance(oper, Minus):
@@ -101,6 +101,10 @@ def insert_to_tree_operator_unary_left(tree: BinTree, oper: Operator, prev_trees
                 tree.set_right((oper, oper.get_unary_l_priority()), tree.get_right())
                 prev_trees.push(tree)
                 tree = tree.get_right()
+            else:
+                # there is a assigned minus before the operator
+                raise SyntaxError(
+                    "Operator Unary Minus must come before a number, another minus or (, instead got: " + oper.get_symbol())
 
     return tree, prev_trees
 

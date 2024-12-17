@@ -10,7 +10,7 @@ def expected_operand(tree : BinTree):
     if isinstance(tree.get_info(), Operand):
         return tree.get_info()
     else:
-        raise SyntaxError("equation isn't finished. expecting another operand ")
+        raise SyntaxError("Equation isn't finished, expecting an operand.")
 
 # check if the expected type and the instance are the same, if they are: summon the operators function
 def expected_operator_unary_right(tree : BinTree):
@@ -18,7 +18,7 @@ def expected_operator_unary_right(tree : BinTree):
     if isinstance(tree.get_info()[TREE_OPER], UnaryROperator):
         return tree.get_info()[TREE_OPER].unary_r_operation(solve_tree(tree.get_left()))
     else:
-        raise SyntaxError("equation isn't finished. expecting another operand ")
+        raise SyntaxError("Equation isn't finished, expecting an operand.")
 
 # check if the expected type and the instance are the same, if they are: summon the operators function
 def expected_operator_binary(tree : BinTree):

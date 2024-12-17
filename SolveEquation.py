@@ -5,6 +5,13 @@ from MakeTree.MakeTree import make_tree
 from SolveTree.CalculationError import CalculationError
 from SolveTree.SolveTree import solve_tree
 
+def print_tree(tree : BinTree):
+    if tree is None:
+        return
+    print(tree.get_info(), end = " ")
+    print_tree(tree.get_left())
+    print_tree(tree.get_right())
+
 # the main function the calls to solve the equation
 def solve_equation(equation : str):
     gotten_input = equation
@@ -15,6 +22,7 @@ def solve_equation(equation : str):
         count_brackets(equ)
         # then creates the appropriate tree for the equation
         equ, tree = make_tree(Equation(gotten_input))
+        print_tree(tree)
         # then solves the tree
         result = solve_tree(tree)
 
@@ -44,6 +52,7 @@ def solve_equation(equation : str):
         print("<--- Error ------------------------------>")
         print("Equation too big: reached maximum recursion")
         print("<---------------------------------------->")
+    # unknown exception case
     except Exception as e:
         print("<--- Error ------------------------------>")
         print("UNKNOWN EXCEPTION ACCRUED")

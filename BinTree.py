@@ -1,5 +1,3 @@
-
-
 class BinTree:
     def __init__(self, info = None, left = None, right = None):
         self._left = left
