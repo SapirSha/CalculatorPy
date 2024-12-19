@@ -9,7 +9,7 @@ from Operand import is_operand, Operand
 from MakeTree.IsOperatorTypes import is_operator_unary_l, is_operator, is_cur_operator_unary_r_in_equation, \
     get_operator, \
     is_operator_binary
-from Operators_Dictionary import OPEN_BRACKETS, CLOSE_BRACKETS
+from Operators_Dictionary import OPEN_PARENTHESES, CLOSE_PARENTHESES
 from Stack import Stack
 
 
@@ -26,7 +26,7 @@ def start_tree(tree: BinTree, equ: Equation, prev_trees: Stack):
         tree, prev_trees = insert_to_tree_operator_unary_left(tree, get_operator(equ.curr()), prev_trees)
         return tree, equ, prev_trees, States.operator_unary_left
 
-    elif equ.curr() in OPEN_BRACKETS:
+    elif equ.curr() in OPEN_PARENTHESES:
         equ, temp_tree = make_tree(equ)
         tree.set_left_tree(temp_tree)
 
@@ -37,7 +37,7 @@ def start_tree(tree: BinTree, equ: Equation, prev_trees: Stack):
             # if no next put tree in the middle
             tree = tree.get_left()
             return tree, equ, prev_trees, States.after_brackets
-        if equ.curr() in CLOSE_BRACKETS:
+        if equ.curr() in CLOSE_PARENTHESES:
             # if close brackets put tree in the middle
             tree = tree.get_left()
             return tree, equ, prev_trees, States.close_brackets
@@ -47,8 +47,8 @@ def start_tree(tree: BinTree, equ: Equation, prev_trees: Stack):
     else:
         #Errors:
         if is_operator(equ.curr()):
-            raise SyntaxError("Operator at start must be Unary left, instead got: " + equ.curr())
-        elif equ.curr() in CLOSE_BRACKETS:
-            raise SyntaxError("equation cannot start with close brackets: " + equ.curr())
+            raise SyntaxError("Operator must be Unary left, instead got: " + equ.curr())
+        elif equ.curr() in CLOSE_PARENTHESES:
+            raise SyntaxError("Expecting operand: " + equ.curr())
         else:
             raise SyntaxError("Invalid Syntax: " + equ.curr())

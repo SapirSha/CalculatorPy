@@ -84,7 +84,7 @@ def insert_to_tree_operator_unary_left(tree: BinTree, oper: Operator, prev_trees
         # if current tree's node is tilde, another operator cannot come after it, apart from unary minus
         if isinstance(tree.get_info()[TREE_OPER], Tilde) and not isinstance(oper, Minus):
             raise SyntaxError(
-                "Operator Tilde(~) must come before a number, unary minus or (, instead got: " + oper.get_symbol())
+                "Operator Tilde(~) must come before a number, unary minus or parentheses (, instead got: " + oper.get_symbol())
         # if current tree's node is NOT minus unary, and trying to a unary minus, place an (Assigned minus) that is 'a part' of the number
         elif isinstance(oper, Minus) and not (
                 isinstance(tree.get_info()[TREE_OPER], Minus) and tree.get_info()[TREE_PRIO] == get_operator(
@@ -94,7 +94,7 @@ def insert_to_tree_operator_unary_left(tree: BinTree, oper: Operator, prev_trees
         elif isinstance(tree.get_info()[TREE_OPER], Minus) and tree.get_info()[TREE_PRIO] == get_operator(
                 '-').get_unary_l_priority() and not isinstance(oper, Minus):
             raise SyntaxError(
-                "Operator Unary Minus must come before a number, another minus or (, instead got: " + oper.get_symbol())
+                "Operator Unary Minus must come before a number, another minus or open parentheses (, instead got: " + oper.get_symbol())
         else:
             # for more general cases
             if tree.get_right() is None or not isinstance(tree.get_right().get_info()[TREE_OPER], Minus):
@@ -104,7 +104,7 @@ def insert_to_tree_operator_unary_left(tree: BinTree, oper: Operator, prev_trees
             else:
                 # there is a assigned minus before the operator
                 raise SyntaxError(
-                    "Operator Unary Minus must come before a number, another minus or (, instead got: " + oper.get_symbol())
+                    "Operator Unary Minus must come before a number, another minus or open parentheses (, instead got: " + oper.get_symbol())
 
     return tree, prev_trees
 

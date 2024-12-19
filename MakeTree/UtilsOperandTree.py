@@ -3,37 +3,31 @@ from Operand import Operand, is_operand
 
 # gets operand from equation (including floating point)
 def get_operand_from_equ(equ : Equation) -> (Equation, Operand):
-    temp = 0
+    number = ""
+    float_flag = False
     try:
-        while is_operand(equ.curr()):
-            temp = temp * 10 + int(equ.curr())
+        while equ.curr().isdigit():
+            number += equ.curr()
             next(equ)
-    except StopIteration:
-        equ.prev()
-        return equ, Operand(temp)
 
-    if equ.curr() == '.':
-        try:
-            next(equ)
-            if not is_operand(equ.curr()):
+        if equ.curr() == '.':
+            number += equ.curr()
+            float_flag = True
+            try:
+                if not next(equ).isdigit():
+                    equ.prev()
+                    raise SyntaxError("A floating point can only come inside an operand")
+            except StopIteration:
                 equ.prev()
-                raise SyntaxError("A number cannot end with '.' ")
-        except StopIteration:
-            equ.prev()
-            raise SyntaxError("A number cannot end with '.' ")
-        temp2 = 0
-        count = 0
-        try:
-            while is_operand(equ.curr()):
-                temp2 = temp2 * 10 + int(equ.curr())
-                count += 1
+                raise SyntaxError("A floating point can only come inside an operand")
+            while equ.curr().isdigit():
+                number += equ.curr()
                 next(equ)
-        except StopIteration:
-            pass
-
-        number = temp + (temp2/10 ** count)
-    else:
-        number = temp
+    except StopIteration:
+        pass
 
     equ.prev()
-    return equ, Operand(number)
+    if float_flag:
+        return equ, Operand(float(number))
+    else:
+        return equ, Operand(int(number))

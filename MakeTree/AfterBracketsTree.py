@@ -5,7 +5,7 @@ from MakeTree.States import States
 from Operand import is_operand
 from MakeTree.IsOperatorTypes import is_cur_operator_unary_r_in_equation, get_operator, is_operator_binary, \
     is_operator_unary_l
-from Operators_Dictionary import CLOSE_BRACKETS, OPEN_BRACKETS
+from Operators_Dictionary import CLOSE_PARENTHESES, OPEN_PARENTHESES
 from Stack import Stack
 
 
@@ -19,15 +19,15 @@ def after_brackets_tree(tree: BinTree, equ: Equation, prev_trees: Stack) -> (Bin
     elif is_operator_binary(equ.curr()):
         tree, prev_trees = insert_to_tree_operator_binary(tree, get_operator(equ.curr()), prev_trees)
         return tree, equ, prev_trees, States.operator_binary
-    elif equ.curr() in CLOSE_BRACKETS:
+    elif equ.curr() in CLOSE_PARENTHESES:
         return tree, equ, prev_trees, States.close_brackets
     else:
         #Errors
         if is_operand(equ.curr()):
-            raise SyntaxError("Operand may not come after Closing brackets ')'")
-        elif equ.curr() in OPEN_BRACKETS:
-            raise SyntaxError("Missing operator between brackets")
+            raise SyntaxError("Operand may not come after Closing parentheses ')'")
+        elif equ.curr() in OPEN_PARENTHESES:
+            raise SyntaxError("Missing operator between parentheses")
         elif is_operator_unary_l(equ.curr()):
-            raise SyntaxError("operator unary left cannot come after Closing brackets ')'")
+            raise SyntaxError("operator unary left cannot come after Closing parentheses ')'")
         else:
             raise SyntaxError("Invalid Syntax: " + equ.curr())

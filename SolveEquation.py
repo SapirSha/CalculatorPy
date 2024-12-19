@@ -1,4 +1,4 @@
-from CountBrackets import count_brackets
+from CountParentheses import count_parentheses
 from Equation import Equation
 from MakeTree.MakeTree import make_tree
 from SolveTree.CalculationError import CalculationError
@@ -11,7 +11,7 @@ def solve_equation(equation : str):
 
     try:
         # first checks if the brackets are correctly placed
-        count_brackets(equ)
+        count_parentheses(equ)
         # then creates the appropriate tree for the equation
         equ, tree = make_tree(Equation(gotten_input))
         # then solves the tree

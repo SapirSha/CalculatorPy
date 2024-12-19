@@ -1,5 +1,5 @@
 def is_operand(c: str):
-    return c.isdigit()
+    return c.isdigit() or c == '.'
 
 # wrapper for a number
 class Operand:

@@ -31,11 +31,11 @@ OPERATORS = [
 # this dictionary will hold the symbol of the operator as its key and the operator instance as its value
 operators_dictionary = {}
 
-OPEN_BRACKETS = ['(']  # close brackets list
-CLOSE_BRACKETS = [')']  # open brackets list
+OPEN_PARENTHESES = ['(']  # close brackets list
+CLOSE_PARENTHESES = [')']  # open brackets list
 
 # this dictionary would hold the brackets to know which open bracket is for which close bracket {Open : Close}
-DIC_BRACKETS = {
+DIC_PARENTHESES = {
     '(': ')',
 }
 
