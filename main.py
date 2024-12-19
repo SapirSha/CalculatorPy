@@ -3,11 +3,13 @@ from SolveEquation import solve_equation
 
 def main():
     print("\t--- Start Program --- \n")
-    print(solve_equation("123.12345*3"))
-    '''
+    inp = ""
     try:
         while True:
-            inp = input(" - Enter Equation: ")
+            inp = input(" - Enter Equation (stop to stop): ")
+            if inp.strip().lower() == "stop":
+                break
+
             res = solve_equation(inp)
 
             if res is not None:
@@ -15,7 +17,8 @@ def main():
                 print(res)
     except KeyboardInterrupt:
         pass
-        '''
+
+
     print("\n\t--- Program End ---")
 
 if __name__ == "__main__":

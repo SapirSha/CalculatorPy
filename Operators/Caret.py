@@ -13,9 +13,8 @@ class Caret(BinaryOperator):
 
     def binary_operation(self, left_operand :Operand, right_operand : Operand) -> Operand:
         try:
-            # no idea if that is supposed to be a thing or not
-            #if left_operand.get_data() == 0 and right_operand.get_data() == 0:
-            #    raise CalculationError(" 0^0 is undefined")
+            if left_operand.get_data() == 0 and right_operand.get_data() < 0:
+                raise CalculationError(" 0 ^ (negative number) is undefined")
 
             # math.pow results are kinda small, this if would check if the number is a certain amount so the calculator won't take a lot of time
             # in case the multiplication is too big do math.pow, so cases like 1 ^ (10^10) would still be one

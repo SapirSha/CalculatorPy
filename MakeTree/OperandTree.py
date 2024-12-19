@@ -23,7 +23,7 @@ def operand_tree(tree: BinTree, equ: Equation, prev_trees: Stack) -> (BinTree, E
         return tree, equ, prev_trees, States.close_brackets
     else:
         #Errors
-        if is_operand(equ.curr()):
+        if is_operand(equ.curr()) and not equ.curr() == '.':
             equ.prev()
             raise SyntaxError("Spaces inside of an operand are not allowed")
         elif equ.curr() == '.':

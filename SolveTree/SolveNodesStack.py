@@ -14,7 +14,7 @@ def solve_nodes_stack(stack : Stack):
         expected_type = get_expected_type(node)
         # stack should only have the operators
         if expected_type == ExpectedType.operand:
-            raise CalculationError("Error accrued while solving the tree")
+            raise SyntaxError("Error accrued while solving the tree")
         else:
             # expected type is an enum that holds the function depending on the expected operator
             node.set_info(expected_type(node))

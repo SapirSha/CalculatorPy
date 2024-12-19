@@ -38,11 +38,6 @@ def solve_equation(equation : str):
         print("<--- Error ------------------------------>")
         print(e.message)
         print("<---------------------------------------->")
-    # can happen when the equation is too long
-    except RecursionError as e:
-        print("<--- Error ------------------------------>")
-        print("Equation too big: reached maximum recursion")
-        print("<---------------------------------------->")
     # unknown exception case
     except Exception as e:
         print("<--- Error ------------------------------>")
