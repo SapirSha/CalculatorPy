@@ -1,6 +1,6 @@
-from abc import abstractmethod, ABC
+from abc import ABC
 
-from Operators.Singleton import Singleton
+from Singleton import Singleton
 
 
 class Operator(ABC, Singleton):
