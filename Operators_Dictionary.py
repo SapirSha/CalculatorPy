@@ -34,7 +34,7 @@ operators_dictionary = {}
 OPEN_PARENTHESES = ['(']  # close brackets list
 CLOSE_PARENTHESES = [')']  # open brackets list
 
-# this dictionary would hold the brackets to know which open bracket is for which close bracket {Open : Close}
+# this dictionary would hold the brackets to know which open bracket is for which close parentheses {Open : Close}
 DIC_PARENTHESES = {
     '(': ')',
 }

@@ -24,7 +24,6 @@ def is_operator_unary_r(symbol: str) -> bool:
 
 # this function predicts the operator type:
 #   this function is important in cases where the operator is both unary-right and binary while the two priorities are different
-#   (for the normal operators this function is pretty much useless)
 def is_cur_operator_unary_r_in_equation(equ: Equation) -> bool:
     current = equ.curr()
 

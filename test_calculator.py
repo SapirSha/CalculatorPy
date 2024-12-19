@@ -167,3 +167,9 @@ def test_calculator():
     print("Expected Error: hash to a negative number")
     assert solve_equation("~123#") is None
     assert solve_equation("-123#") == -6
+
+    assert solve_equation("2.3#") == 5
+    assert solve_equation("99##") == 9
+
+
+

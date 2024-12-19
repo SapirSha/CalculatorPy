@@ -1,9 +1,11 @@
 from SolveEquation import solve_equation
+from Operators.Plus import Plus
 
 
 def main():
     print("\t--- Start Program --- \n")
     inp = ""
+
     try:
         while True:
             inp = input(" - Enter Equation (stop to stop): ")

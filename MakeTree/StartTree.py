@@ -36,14 +36,14 @@ def start_tree(tree: BinTree, equ: Equation, prev_trees: Stack):
         except StopIteration:
             # if no next put tree in the middle
             tree = tree.get_left()
-            return tree, equ, prev_trees, States.after_brackets
+            return tree, equ, prev_trees, States.after_parentheses
         if equ.curr() in CLOSE_PARENTHESES:
             # if close brackets put tree in the middle
             tree = tree.get_left()
-            return tree, equ, prev_trees, States.close_brackets
+            return tree, equ, prev_trees, States.close_parentheses
         else:
             equ.prev()
-            return tree, equ, prev_trees, States.after_brackets
+            return tree, equ, prev_trees, States.after_parentheses
     else:
         #Errors:
         if is_operator(equ.curr()):

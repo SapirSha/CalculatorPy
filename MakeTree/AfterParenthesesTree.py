@@ -10,7 +10,7 @@ from Stack import Stack
 
 
 # this function represent a state where the previous gotten input was closing brackets
-def after_brackets_tree(tree: BinTree, equ: Equation, prev_trees: Stack) -> (BinTree, Equation, Stack, int):
+def after_parentheses_tree(tree: BinTree, equ: Equation, prev_trees: Stack) -> (BinTree, Equation, Stack, int):
     equ.remove_white_space()
 
     if is_cur_operator_unary_r_in_equation(equ):
@@ -20,7 +20,7 @@ def after_brackets_tree(tree: BinTree, equ: Equation, prev_trees: Stack) -> (Bin
         tree, prev_trees = insert_to_tree_operator_binary(tree, get_operator(equ.curr()), prev_trees)
         return tree, equ, prev_trees, States.operator_binary
     elif equ.curr() in CLOSE_PARENTHESES:
-        return tree, equ, prev_trees, States.close_brackets
+        return tree, equ, prev_trees, States.close_parentheses
     else:
         #Errors
         if is_operand(equ.curr()):

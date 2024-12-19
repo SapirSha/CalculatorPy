@@ -1,7 +1,9 @@
 from abc import abstractmethod, ABC
 
+from Operators.Singleton import Singleton
 
-class Operator(ABC):
+
+class Operator(ABC, Singleton):
     symbol = None
     binary_priority = 0
     unary_left_priority = 0
