@@ -3,6 +3,7 @@ from enum import Enum
 TREE_PRIO = 1
 TREE_OPER = 0
 
+
 # enum that holds the appropriate function for the expected type
 class ExpectedType(Enum):
     from SolveTree.ExpectedOperatorFunction import expected_operand, expected_operator_binary, \

@@ -1,10 +1,10 @@
 from BinTree import BinTree
 from Equation import Equation
 from MakeTree.InsertToTree import insert_to_tree_operator_unary_right, insert_to_tree_operator_binary
-from MakeTree.States import States
-from Operand import is_operand
 from MakeTree.IsOperatorTypes import is_cur_operator_unary_r_in_equation, get_operator, is_operator_binary, \
     is_operator_unary_l
+from MakeTree.States import States
+from Operand import is_operand
 from Operators_Dictionary import CLOSE_PARENTHESES, OPEN_PARENTHESES
 from Stack import Stack
 
@@ -22,7 +22,7 @@ def operand_tree(tree: BinTree, equ: Equation, prev_trees: Stack) -> (BinTree, E
     elif equ.curr() in CLOSE_PARENTHESES:
         return tree, equ, prev_trees, States.close_parentheses
     else:
-        #Errors
+        # Errors
         if is_operand(equ.curr()) and not equ.curr() == '.':
             equ.prev()
             raise SyntaxError("Spaces inside of an operand are not allowed")

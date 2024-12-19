@@ -1,8 +1,9 @@
 from Equation import Equation
-from Operand import Operand, is_operand
+from Operand import Operand
+
 
 # gets operand from equation (including floating point)
-def get_operand_from_equ(equ : Equation) -> (Equation, Operand):
+def get_operand_from_equ(equ: Equation) -> (Equation, Operand):
     number = ""
     float_flag = False
     try:

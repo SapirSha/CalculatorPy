@@ -7,7 +7,7 @@ class Hash(UnaryROperator):
     symbol = '#'
     unary_right_priority = 6
 
-    def unary_r_operation(self, number : Operand) -> Operand:
+    def unary_r_operation(self, number: Operand) -> Operand:
         if number.get_data() < 0:
             raise CalculationError("Hash cannot be used with a negative number: " + str(number.get_data()))
         num = str(number.get_data())

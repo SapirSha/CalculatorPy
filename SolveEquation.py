@@ -4,8 +4,9 @@ from MakeTree.MakeTree import make_tree
 from SolveTree.CalculationError import CalculationError
 from SolveTree.SolveTree import solve_tree
 
+
 # the main function the calls to solve the equation
-def solve_equation(equation : str):
+def solve_equation(equation: str):
     gotten_input = equation
     equ = Equation(gotten_input)
 

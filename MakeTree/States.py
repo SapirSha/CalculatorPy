@@ -7,6 +7,7 @@ from MakeTree.StateFunctions import state_start, state_operator_unary_left, stat
 TREE_PRIO = 1
 TREE_OPER = 0
 
+
 # enum that holds the functions for each state
 class States(Enum):
     start = state_start

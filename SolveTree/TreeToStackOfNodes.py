@@ -1,8 +1,9 @@
 from BinTree import BinTree
 from Stack import Stack
 
+
 # this function returns a stack with the internal nodes (operators) in the tree
-def get_trees_internal_nodes(tree : BinTree) -> Stack:
+def get_trees_internal_nodes(tree: BinTree) -> Stack:
     if tree is None or tree.get_info() is None:
         raise SyntaxError("Empty Equation!")
 

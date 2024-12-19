@@ -1,16 +1,16 @@
 from Operators.Ampersand import Ampersand
-from Operators.AtSign import AtSign
-from Operators.Dollar import Dollar
-from Operators.Operator import Operator
 from Operators.Asterisk import Asterisk
+from Operators.AtSign import AtSign
 from Operators.Caret import Caret
+from Operators.Dollar import Dollar
 from Operators.ExclamationMark import ExclamationMark
-from Operators.Percent import Percent
-from Operators.Slash import Slash
-from Operators.Minus import Minus
-from Operators.Plus import Plus
-from Operators.Tilde import Tilde
 from Operators.Hash import Hash
+from Operators.Minus import Minus
+from Operators.Operator import Operator
+from Operators.Percent import Percent
+from Operators.Plus import Plus
+from Operators.Slash import Slash
+from Operators.Tilde import Tilde
 
 # this list holds all the operators instances that are active
 OPERATORS = [
@@ -49,7 +49,8 @@ def create_operators_dictionary():
         for operator in OPERATORS:
             operators_dictionary[operator.get_symbol()] = operator
     else:
-        pass # dictionary already created
+        pass  # dictionary already created
+
 
 # retrieves the operator instance from the dictionary
 def get_operator(symbol: str) -> Operator:

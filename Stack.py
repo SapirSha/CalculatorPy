@@ -1,11 +1,11 @@
 class StackType:
-    def __init__(self, info = None, next = None):
+    def __init__(self, info=None, next=None):
         self.info = info
         self.next = next
 
 
 class Stack:
-    def __init__(self, stack = StackType()):
+    def __init__(self, stack=StackType()):
         self.stack = stack
 
     def is_empty(self):

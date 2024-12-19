@@ -4,11 +4,10 @@ from SolveTree.CalculationError import CalculationError
 
 
 class ExclamationMark(UnaryROperator):
-
     symbol = '!'
     unary_right_priority = 6
 
-    def unary_r_operation(self, number : Operand) -> Operand:
+    def unary_r_operation(self, number: Operand) -> Operand:
         if number.get_data() < 0:
             raise CalculationError("Cant factorial a negative number: " + str(number.get_data()))
         elif number.get_data() != int(number.get_data()):

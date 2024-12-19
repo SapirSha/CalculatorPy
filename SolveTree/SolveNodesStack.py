@@ -1,11 +1,10 @@
 from BinTree import BinTree
-from SolveTree.CalculationError import CalculationError
 from SolveTree.ExpectedType import ExpectedType
 from SolveTree.GetExpectedType import get_expected_type
 from Stack import Stack
 
 
-def solve_nodes_stack(stack : Stack):
+def solve_nodes_stack(stack: Stack):
     node = BinTree()
 
     while not stack.is_empty():

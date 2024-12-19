@@ -1,5 +1,6 @@
 from SolveEquation import solve_equation
 
+
 def test_calculator():
     print("Expected Error: Empty equation")
     assert solve_equation("       ") is None
@@ -99,7 +100,8 @@ def test_calculator():
     assert solve_equation(" - ") is None
     print("Expected Error: Expecting operator left")
     assert solve_equation("!") is None
-    assert solve_equation("    \t                       \n\n  \n                    2                            \n\t\t\t\t\t\t") == 2
+    assert solve_equation(
+        "    \t                       \n\n  \n                    2                            \n\t\t\t\t\t\t") == 2
     assert solve_equation(" 1 " + (" + 1" * 1000)) == 1001
     print("Expected Error: Missing Operand")
     assert solve_equation("5 + ") is None
@@ -170,6 +172,3 @@ def test_calculator():
 
     assert solve_equation("2.3#") == 5
     assert solve_equation("99##") == 9
-
-
-

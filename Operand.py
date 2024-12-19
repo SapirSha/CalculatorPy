@@ -1,6 +1,7 @@
 def is_operand(c: str):
     return c.isdigit() or c == '.'
 
+
 # wrapper for a number
 class Operand:
     def __init__(self, data):

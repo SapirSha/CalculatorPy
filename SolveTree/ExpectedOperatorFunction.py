@@ -12,7 +12,6 @@ def expected_operand(tree: BinTree):
 
 # check if the expected type and the instance are the same, if they are: summon the operators function
 def expected_operator_unary_right(tree: BinTree):
-    from SolveTree.SolveTree import solve_tree
     if isinstance(tree.get_info()[TREE_OPER], UnaryROperator):
         return tree.get_info()[TREE_OPER].unary_r_operation(tree.get_left().get_info())
     else:
@@ -21,7 +20,6 @@ def expected_operator_unary_right(tree: BinTree):
 
 # check if the expected type and the instance are the same, if they are: summon the operators function
 def expected_operator_binary(tree: BinTree):
-    from SolveTree.SolveTree import solve_tree
     if isinstance(tree.get_info()[TREE_OPER], BinaryOperator):
         return tree.get_info()[TREE_OPER].binary_operation(tree.get_left().get_info(), tree.get_right().get_info())
     else:
@@ -31,7 +29,6 @@ def expected_operator_binary(tree: BinTree):
 
 # check if the expected type and the instance are the same, if they are: summon the operators function
 def expected_operator_unary_left(tree: BinTree):
-    from SolveTree.SolveTree import solve_tree
     if isinstance(tree.get_info()[TREE_OPER], UnaryLOperator):
         return tree.get_info()[TREE_OPER].unary_l_operation(tree.get_right().get_info())
     else:

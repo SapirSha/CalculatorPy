@@ -1,5 +1,4 @@
 from SolveEquation import solve_equation
-from Operators.Plus import Plus
 
 
 def main():
@@ -20,8 +19,8 @@ def main():
     except KeyboardInterrupt:
         pass
 
-
     print("\n\t--- Program End ---")
+
 
 if __name__ == "__main__":
     main()

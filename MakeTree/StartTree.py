@@ -1,14 +1,11 @@
 from BinTree import BinTree
 from Equation import Equation
-from MakeTree.InsertToTree import insert_to_tree_operator_unary_right, insert_to_tree_operator_binary, \
-    insert_to_tree_operator_unary_left, insert_to_tree_operand
+from MakeTree.InsertToTree import insert_to_tree_operator_unary_left
+from MakeTree.IsOperatorTypes import is_operator_unary_l, is_operator, get_operator
 from MakeTree.MakeTree import make_tree
 from MakeTree.States import States
 from MakeTree.UtilsOperandTree import get_operand_from_equ
-from Operand import is_operand, Operand
-from MakeTree.IsOperatorTypes import is_operator_unary_l, is_operator, is_cur_operator_unary_r_in_equation, \
-    get_operator, \
-    is_operator_binary
+from Operand import is_operand
 from Operators_Dictionary import OPEN_PARENTHESES, CLOSE_PARENTHESES
 from Stack import Stack
 
@@ -19,7 +16,7 @@ def start_tree(tree: BinTree, equ: Equation, prev_trees: Stack):
 
     if is_operand(equ.curr()):
         equ, oper = get_operand_from_equ(equ)
-        tree.set_info(oper) # the only time to insert an operand in the middle
+        tree.set_info(oper)  # the only time to insert an operand in the middle
         return tree, equ, prev_trees, States.operand
 
     elif is_operator_unary_l(equ.curr()):
@@ -45,7 +42,7 @@ def start_tree(tree: BinTree, equ: Equation, prev_trees: Stack):
             equ.prev()
             return tree, equ, prev_trees, States.after_parentheses
     else:
-        #Errors:
+        # Errors:
         if is_operator(equ.curr()):
             raise SyntaxError("Operator must be Unary left, instead got: " + equ.curr())
         elif equ.curr() in CLOSE_PARENTHESES:
