@@ -1,21 +1,25 @@
 from SolveEquation import solve_equation
 
 
+def ui_sort_of():
+    try:
+        inp = input(" - Enter Equation (stop to stop): ")
+        if inp.strip().lower() == "stop":
+            raise KeyboardInterrupt
+
+        return solve_equation(inp)
+    except Exception:
+        return
+
+
 def main():
     print("\t--- Start Program --- \n")
-    inp = ""
 
     try:
         while True:
-            inp = input(" - Enter Equation (stop to stop): ")
-            if inp.strip().lower() == "stop":
-                break
-
-            res = solve_equation(inp)
-
+            res = ui_sort_of()
             if res is not None:
-                print("Answer: ", end="")
-                print(res)
+                print(f"Answer: {res}")
     except KeyboardInterrupt:
         pass
 

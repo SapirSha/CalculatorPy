@@ -29,19 +29,23 @@ def solve_equation(equation: str):
             print(equ.index * ' ' + '^')
             print(e)
             print("<---------------------------------------->")
+        raise
     # can happen when equation numbers are too big
     except OverflowError as e:
         print("<--- Error ------------------------------>")
         print("Numbers too big: reached Overflow")
         print("<---------------------------------------->")
+        raise
     # can happen when an operator gets an invalid number
     except CalculationError as e:
         print("<--- Error ------------------------------>")
         print(e.message)
         print("<---------------------------------------->")
+        raise
     # unknown exception case
     except Exception as e:
         print("<--- Error ------------------------------>")
         print("UNKNOWN EXCEPTION ACCRUED")
         print(e)
         print("<---------------------------------------->")
+        raise
