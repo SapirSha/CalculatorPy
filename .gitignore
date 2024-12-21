@@ -1,0 +1,50 @@
+# Python-related files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+pyvenv.cfg
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Logs and debug files
+*.log
+*.tmp
+*.bak
+
+# PyCharm-specific files
+.idea/
+
+# Unit test / coverage reports
+.coverage
+.tox/
+.cache/
+*.cover
+htmlcov/
+
+# Flask
+instance/
+.webassets-cache
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Django
+local_settings.py
+
+# dotenv
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
