@@ -1,6 +1,5 @@
-from CountParentheses import count_parentheses
 from Equation import Equation
-from MakeTree.MakeTree import make_tree
+from MakeTree.MakeTree import make_tree, parentheses_stack
 from SolveTree.CalculationError import CalculationError
 from SolveTree.SolveTree import solve_tree
 
@@ -11,10 +10,14 @@ def solve_equation(equation: str):
     equ = Equation(gotten_input)
 
     try:
-        # first checks if the brackets are correctly placed
-        count_parentheses(equ)
-        # then creates the appropriate tree for the equation
+        # creates the appropriate tree for the equation
+        parentheses_stack.clear()
         equ, tree = make_tree(Equation(gotten_input))
+
+        # check if all open parentheses are closed
+        if not parentheses_stack.is_empty():
+            raise SyntaxError("Missing Close Parentheses: " + parentheses_stack.peek())
+
         # then solves the tree
         result = solve_tree(tree)
 

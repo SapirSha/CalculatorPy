@@ -3,7 +3,7 @@ from Equation import Equation
 from MakeTree.States import States
 from Stack import Stack
 
-
+parentheses_stack = Stack()
 # the function to handle the making of the tree
 def make_tree(equ: Equation) -> (Equation, BinTree):
     tree = BinTree()

@@ -2,7 +2,7 @@ from BinTree import BinTree
 from Equation import Equation
 from MakeTree.InsertToTree import insert_to_tree_operator_unary_left
 from MakeTree.IsOperatorTypes import is_operator_unary_l, is_operator, get_operator
-from MakeTree.MakeTree import make_tree
+from MakeTree.MakeTree import make_tree, parentheses_stack
 from MakeTree.States import States
 from MakeTree.UtilsOperandTree import get_operand_from_equ
 from Operand import is_operand
@@ -24,6 +24,7 @@ def start_tree(tree: BinTree, equ: Equation, prev_trees: Stack):
         return tree, equ, prev_trees, States.operator_unary_left
 
     elif equ.curr() in OPEN_PARENTHESES:
+        parentheses_stack.push(equ.curr())
         equ, temp_tree = make_tree(equ)
         tree.set_left_tree(temp_tree)
 
@@ -37,6 +38,7 @@ def start_tree(tree: BinTree, equ: Equation, prev_trees: Stack):
         if equ.curr() in CLOSE_PARENTHESES:
             # if close brackets put tree in the middle
             tree = tree.get_left()
+            equ.prev()
             return tree, equ, prev_trees, States.close_parentheses
         else:
             equ.prev()

@@ -21,3 +21,6 @@ class Stack:
 
     def peek(self):
         return self.stack.info
+
+    def clear(self):
+        self.stack = StackType()

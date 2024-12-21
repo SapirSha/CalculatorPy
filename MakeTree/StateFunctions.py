@@ -38,7 +38,10 @@ def state_operand(tree: BinTree, equ: Equation, prev_trees: Stack):
 def state_open_parentheses(tree: BinTree, equ: Equation, prev_trees: Stack):
     from MakeTree.MakeTree import make_tree
     from MakeTree.InsertToTree import insert_to_tree_tree
+    from MakeTree.MakeTree import parentheses_stack
+
     equ.prev()
+    parentheses_stack.push(equ.curr())
     equ, temp_tree = make_tree(equ)
     insert_to_tree_tree(tree, temp_tree, prev_trees)
     state = state_after_parentheses
@@ -54,5 +57,13 @@ def state_after_parentheses(tree: BinTree, equ: Equation, prev_trees: Stack):
 # utility for close brackets state in case want to add somthing
 # this function is pretty much designed to break the loop in the 'maketree' function
 def state_close_parentheses(tree: BinTree, equ: Equation, prev_trees: Stack):
-    equ.prev()
+    from Operators_Dictionary import DIC_PARENTHESES
+    from MakeTree.MakeTree import parentheses_stack
+
+    if DIC_PARENTHESES.get(parentheses_stack.peek()) is None:
+        equ.index = 0
+        raise SyntaxError("Missing Open Parentheses")
+    if DIC_PARENTHESES.get(parentheses_stack.peek()) != equ.curr():
+        raise SyntaxError("Parentheses mashup: " + str(parentheses_stack.peek()) + " and " + equ.curr())
+    parentheses_stack.pop()
     raise StopIteration

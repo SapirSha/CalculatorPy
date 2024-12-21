@@ -1,5 +1,5 @@
+from MakeTree.MakeTree import parentheses_stack
 from SolveEquation import solve_equation
-
 
 def ui_sort_of():
     try:
@@ -7,7 +7,9 @@ def ui_sort_of():
         if inp.strip().lower() == "stop":
             raise KeyboardInterrupt
 
-        return solve_equation(inp)
+        res =  solve_equation(inp)
+
+        return res
     except Exception:
         return
 
