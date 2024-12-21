@@ -1,4 +1,4 @@
-# Python-related files
+# Python-related files
 __pycache__/
 *.py[cod]
 *$py.class
